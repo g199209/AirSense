@@ -54,8 +54,9 @@
 /**
   * @brief  USART2 for debug use
   */
-#define USART2Pin     (GPIO_Pin_2 | GPIO_Pin_3)
-#define USART2IRQPRIO 15
+#define USART2TXPin     GPIO_Pin_2
+#define USART2RXPin     GPIO_Pin_3
+#define USART2IRQPRIO   15
 /**
   * @brief  OS STK
   */
