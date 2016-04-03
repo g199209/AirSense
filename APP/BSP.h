@@ -60,14 +60,20 @@
 /**
   * @brief  OS STK
   */
-// TaskInit
-#define TASK_INIT_STK_SIZE  30u
+#define TASK_INIT_STK_SIZE      30u     // TaskInit
+#define TASK_SENSOR_STK_SIZE    64u     // SensorMeasure
+#define TASK_BUTTON_STK_SIZE    64u     // ButtonUpdate
+#define TASK_DISPLAY_STK_SIZE   64u     // OLEDUpdate
+#define TASK_WIFI_STK_SIZE      64u     // WiFiSendPacket
 
 /**
   * @brief  OS Priority
   */
-// TaskInit
-#define TASK_INIT_PRIO      9u
+#define TASK_INIT_PRIO      9u      // TaskInit
+#define TASK_SENSOR_PRIO    13u     // SensorMeasure
+#define TASK_BUTTON_PRIO    10u     // ButtonUpdate
+#define TASK_DISPLAY_PRIO   11u     // OLEDUpdate
+#define TASK_WIFI_PRIO      15u     // WiFiSendPacket
 
 
 /**
@@ -82,8 +88,6 @@ void TaskInit(void *p_arg);
 
 
 void BSPInit(void);
-
-
 
 #endif
 

@@ -22,6 +22,8 @@
 #ifndef WIFI_H
 #define WIFI_H
 
+void WiFiInit(void);
 
+void WiFiSendPacket(void *p_arg);
 
 #endif

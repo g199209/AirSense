@@ -22,3 +22,28 @@
   */
 
 #include "BSP.h"
+
+/**
+  * @brief  Sensor initialization
+  *
+  * @param  None
+  *
+  * @retval None
+  */
+void SensorInit(void)
+{
+
+}
+
+/**
+  * @brief  Sensor measurement task
+  *
+  * @param  p_arg: Unused
+  *
+  * @retval None
+  */
+void SensorMeasure(void *p_arg)
+{
+
+  while (1);
+}

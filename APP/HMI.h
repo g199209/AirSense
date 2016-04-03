@@ -24,5 +24,9 @@
 #ifndef HMI_H
 #define HMI_H
 
+void HMIInit(void);
+
+void OLEDUpdate(void *p_arg);
+void ButtonUpdate(void *p_arg);
 
 #endif

@@ -25,6 +25,10 @@
   * @brief  OS STK
   */
 OS_STK Task_Init_STK[TASK_INIT_STK_SIZE];
+OS_STK Task_Sensor_STK[TASK_SENSOR_STK_SIZE];
+OS_STK Task_Button_STK[TASK_BUTTON_STK_SIZE];
+OS_STK Task_Display_STK[TASK_DISPLAY_STK_SIZE];
+OS_STK Task_WiFi_STK[TASK_WIFI_STK_SIZE];
 
 /**
 * @brief  Private function prototype
@@ -58,11 +62,12 @@ void BSPInit(void)
   */
 void TaskInit(void *p_arg)
 {
+  OSTaskCreate(SensorMeasure, (void *)0, &Task_Sensor_STK[TASK_SENSOR_STK_SIZE - 1], TASK_SENSOR_PRIO);
+  OSTaskCreate(ButtonUpdate, (void *)0, &Task_Button_STK[TASK_BUTTON_STK_SIZE - 1], TASK_BUTTON_PRIO);
+  OSTaskCreate(OLEDUpdate, (void *)0, &Task_Display_STK[TASK_DISPLAY_STK_SIZE - 1], TASK_DISPLAY_PRIO);
+  OSTaskCreate(WiFiSendPacket, (void *)0, &Task_WiFi_STK[TASK_WIFI_STK_SIZE - 1], TASK_WIFI_PRIO);
 
-  while (1)
-  {
-    
-  }
+  OSTaskDel(OS_PRIO_SELF);
 }
 
 /**
@@ -169,10 +174,8 @@ int fputc(int ch, FILE *f)
   /* e.g. write a character to the USART */
 
   /* Loop until the end of transmission */
-  while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET)
-  {
-  }
-  USART_SendData(USART2, (uint8_t)ch);
+  while (USART2->SR & USART_SR_TC == 0);
+  USART2->DR = (uint8_t)ch;
 
   return ch;
 }
@@ -187,15 +190,9 @@ int fputc(int ch, FILE *f)
 int fgetc(FILE *f)
 {
   int ch;
-  while (USART_GetFlagStatus(USART2, USART_FLAG_RXNE) == RESET)
-  {
-  }
-  ch = USART_ReceiveData(USART2);
+  while (USART2->SR & USART_SR_RXNE == 0);
+  ch = USART2->DR & 0xFF;
 
-  while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET)
-  {
-  }
-  USART_SendData(USART2, (uint8_t)ch);
   return ch;
 }
 

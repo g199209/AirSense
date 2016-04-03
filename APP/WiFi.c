@@ -20,3 +20,27 @@
   */
 
 #include "BSP.h"
+
+/**
+  * @brief  WiFi module initialization
+  *
+  * @param  None
+  *
+  * @retval None
+  */
+void WiFiInit(void)
+{
+
+}
+
+/**
+  * @brief  WiFi send packet task
+  *
+  * @param  p_arg: Unused
+  *
+  * @retval None
+  */
+void WiFiSendPacket(void *p_arg)
+{
+
+}

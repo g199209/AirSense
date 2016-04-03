@@ -22,3 +22,41 @@
   */
 
 #include "BSP.h"
+
+/**
+  * @brief  HMI module initialization
+  *
+  * @param  None
+  *
+  * @retval None
+  */
+void HMIInit(void)
+{
+
+}
+
+/**
+  * @brief  OLED display update task
+  *
+  * @param  p_arg: Unused
+  *
+  * @retval None
+  */
+void OLEDUpdate(void *p_arg)
+{
+
+  while (1);
+}
+
+/**
+  * @brief  Button update task
+  *
+  * @param  p_arg: Unused
+  *
+  * @retval None
+  */
+void ButtonUpdate(void *p_arg)
+{
+
+  while (1);
+}
