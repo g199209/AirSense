@@ -5,3 +5,6 @@
 *.sdf
 *.opensdf
 *.suo
+*.log
+*.ini
+JLinkLog.txt
