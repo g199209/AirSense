@@ -413,10 +413,52 @@
               <FileType>1</FileType>
               <FilePath>..\APP\main.c</FilePath>
             </File>
+            <File>
+              <FileName>BSP.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\BSP.c</FilePath>
+            </File>
+            <File>
+              <FileName>Sensor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\Sensor.c</FilePath>
+            </File>
+            <File>
+              <FileName>HMI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\HMI.c</FilePath>
+            </File>
+            <File>
+              <FileName>WiFi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\WiFi.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>APP Header</GroupName>
+          <Files>
+            <File>
+              <FileName>BSP.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\APP\BSP.h</FilePath>
+            </File>
+            <File>
+              <FileName>Sensor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\APP\Sensor.h</FilePath>
+            </File>
+            <File>
+              <FileName>HMI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\APP\HMI.h</FilePath>
+            </File>
+            <File>
+              <FileName>WiFi.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\APP\WiFi.h</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>uCOS Core</GroupName>

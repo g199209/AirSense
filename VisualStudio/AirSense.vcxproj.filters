@@ -126,6 +126,18 @@
     <ClCompile Include="..\MDK\RTE\Device\STM32F103C8\system_stm32f10x.c">
       <Filter>源文件\::Device</Filter>
     </ClCompile>
+    <ClCompile Include="..\APP\BSP.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\APP\HMI.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\APP\Sensor.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\APP\WiFi.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\uCOS\CORE\ucos_ii.h">
@@ -152,8 +164,19 @@
     <None Include="..\MDK\RTE\Device\STM32F103C8\stm32f10x_conf.h">
       <Filter>源文件\::Device</Filter>
     </None>
-    <None Include="Readme.txt">
-      <Filter>项目说明</Filter>
-    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\APP\BSP.h">
+      <Filter>源文件\APP Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\APP\HMI.h">
+      <Filter>源文件\APP Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\APP\Sensor.h">
+      <Filter>源文件\APP Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\APP\WiFi.h">
+      <Filter>源文件\APP Header</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

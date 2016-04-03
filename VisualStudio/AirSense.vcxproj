@@ -23,7 +23,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AirSense|Win32'">
     <NMakeOutput>AirSense.exe</NMakeOutput>
-    <NMakePreprocessorDefinitions>STM32F10X_MD;_RTE_</NMakePreprocessorDefinitions>
+    <NMakePreprocessorDefinitions>STM32F10X_MD;_RTE_;__CC_ARM</NMakePreprocessorDefinitions>
     <IncludePath>C:\Program Files %28x86%29\Keil\ARM\Pack\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\inc;C:\Program Files (x86)\Keil\ARM\ARMCC\include\;C:\Program Files (x86)\Keil\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\;C:\Program Files %28x86%29\Keil\ARM\Pack\Keil\STM32F1xx_DFP\1.1.0\Device\Include;..\MDK\RTE\Device\STM32F103C8;..\MDK\RTE;..\uCOS\CORE;..\uCOS\CONFIG;..\uCOS\PORT;..\APP</IncludePath>
     <NMakeBuildCommandLine>"C:\Keil\UV4\Uv4.exe " -b ..\MDK\AirSense.uvprojx -t "AirSense" -j0 -o Build.log</NMakeBuildCommandLine>
   </PropertyGroup>
@@ -40,7 +40,11 @@
     <None Include="..\MDK\RTE\Device\STM32F103C8\stm32f10x_conf.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\APP\BSP.c" />
+    <ClCompile Include="..\APP\HMI.c" />
     <ClCompile Include="..\APP\main.c" />
+    <ClCompile Include="..\APP\Sensor.c" />
+    <ClCompile Include="..\APP\WiFi.c" />
     <ClCompile Include="..\uCOS\CORE\os_core.c" />
     <ClCompile Include="..\uCOS\CORE\os_flag.c" />
     <ClCompile Include="..\uCOS\CORE\os_mbox.c" />
@@ -70,6 +74,12 @@
     <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_tim.c" />
     <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_usart.c" />
     <ClCompile Include="..\MDK\RTE\Device\STM32F103C8\system_stm32f10x.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\APP\BSP.h" />
+    <ClInclude Include="..\APP\HMI.h" />
+    <ClInclude Include="..\APP\Sensor.h" />
+    <ClInclude Include="..\APP\WiFi.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
