@@ -33,6 +33,7 @@
 #include "Sensor.h"
 #include "HMI.h"
 #include "RTC.h"
+#include "EEPROM.h"
 
 /** @addtogroup System Configuration
   * @brief System Configuration
@@ -86,13 +87,17 @@
   */
 
 /**
+  * @brief  OS Events
+  */
+extern OS_EVENT * SensorDataReady;
+
+/**
   * @brief  TaskInit
   */
 void TaskInit(void *p_arg);
 #ifdef __DEBUG
 void TaskDebug(void * p_arg);
 #endif
-
 
 void BSPInit(void);
 

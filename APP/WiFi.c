@@ -21,6 +21,9 @@
 
 #include "BSP.h"
 
+/* Private functions */
+static void WiFiOSTaskInit(void);
+
 /**
   * @brief  WiFi module initialization
   *
@@ -31,6 +34,7 @@
   */
 ErrorStatus WiFiInit(void)
 {
+  
   return SUCCESS;
 }
 
@@ -43,5 +47,25 @@ ErrorStatus WiFiInit(void)
   */
 void WiFiSendPacket(void *p_arg)
 {
+  INT8U err;
+  while (1)
+  {
+    OSSemPend(SensorDataReady, 0, &err);
+    printf("WiFi\r\n");
+  }
+}
+
+
+/**
+  * @brief  Initialize WiFi OS Task
+  *
+  * @param  None
+  *
+  * @retval None
+  */
+static void WiFiOSTaskInit(void)
+{
+  /* Create */
+  
 
 }

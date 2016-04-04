@@ -34,10 +34,14 @@ OS_STK Task_Debug_STK[TASK_DEBUG_STK_SIZE];
 #endif
 
 /**
+  * @brief  OS Event
+  */
+OS_EVENT * SensorDataReady;
+
+/**
   * @brief  Private function prototype
   */
 static void DebugInit(void);
-static void EEPROMInit(void);
 
 volatile uint8_t RXdata;
 
@@ -55,6 +59,9 @@ void BSPInit(void)
 
   /* Debug function initialization */
   DebugInit();
+
+  /* RTC initialization */
+  RTCInit();
 
 #ifdef __DEBUG
   printf("Debug interface initialize OK!\r\n");
@@ -89,6 +96,16 @@ void BSPInit(void)
 #else
   WiFiInit();
 #endif
+
+  /* EEPROM initialization */
+#ifdef __DEBUG
+  if (EEPROMInit() == SUCCESS)
+    printf("WiFi initialize OK!\r\n");
+  else
+    printf("WiFi initialize FAILED!\r\n");
+#else
+  EEPROMInit();
+#endif
 }
 
 /**
@@ -102,6 +119,7 @@ void TaskInit(void *p_arg)
 {
   INT8U result = 0u;
 
+  /* Create Tasks */
   result += OSTaskCreate(SensorMeasure, (void *)0, &Task_Sensor_STK[TASK_SENSOR_STK_SIZE - 1], TASK_SENSOR_PRIO);
   result += OSTaskCreate(ButtonUpdate, (void *)0, &Task_Button_STK[TASK_BUTTON_STK_SIZE - 1], TASK_BUTTON_PRIO);
   result += OSTaskCreate(OLEDUpdate, (void *)0, &Task_Display_STK[TASK_DISPLAY_STK_SIZE - 1], TASK_DISPLAY_PRIO);
@@ -113,6 +131,9 @@ void TaskInit(void *p_arg)
   else
     printf("Task Create FAILED!\r\n");
 #endif
+
+  /* Create Sems */
+  SensorDataReady = OSSemCreate(1);
 
   OSTaskDel(OS_PRIO_SELF);
 }
@@ -131,8 +152,9 @@ void TaskDebug(void * p_arg)
   t = time(0);
   while (1)
   {
-    printf("Time = %d\r\n", t);
-    OSTimeDlyHMSM(0, 0, 10, 0);
+    // printf("Time = %d\r\n", t);
+    OSSemPost(SensorDataReady);
+    OSTimeDlyHMSM(0, 0, 5, 0);
   }
 }
 #endif
@@ -195,18 +217,6 @@ static void DebugInit(void)
   NVIC_Init(&NVIC_InitStructure);
 
   USART_Cmd(USART2, ENABLE);
-}
-
-/**
-  * @brief  brief
-  *
-  * @param  : 
-  *
-  * @retval void
-  */
-static void EEPROMInit(void)
-{
-
 }
 
 /**
@@ -273,10 +283,5 @@ int fgetc(FILE *f)
   ch = USART2->DR & 0xFF;
 
   return ch;
-}
-
-_ARMABI time_t time(time_t * timer)
-{
-  return 5;
 }
 

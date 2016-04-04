@@ -46,7 +46,10 @@ ErrorStatus HMIInit(void)
 void OLEDUpdate(void *p_arg)
 {
 
-  while (1);
+  while (1)
+  {
+    OSTaskSuspend(OS_PRIO_SELF);
+  }
 }
 
 /**
@@ -58,6 +61,8 @@ void OLEDUpdate(void *p_arg)
   */
 void ButtonUpdate(void *p_arg)
 {
-
-  while (1);
+  while (1)
+  {
+    OSTaskSuspend(OS_PRIO_SELF);
+  }
 }
