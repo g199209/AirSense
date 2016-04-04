@@ -1,15 +1,15 @@
 /**
   **************************************************************
-  * @file       RTC.h
+  * @file       EEPROM.h
   * @author     高明飞
   * @version    V0.1
   * @date       2016-4-4
   *
-  * @brief      RTC module
+  * @brief      EEPROM Module
   *
   * @details 
   * @verbatim
-  * RTC模块及时间处理
+  * EEPROM模块
   *
   * 修改记录：
   * 2016-4-4 :
@@ -19,9 +19,10 @@
   ***************************************************************
   */
 
-#ifndef RTC_H
-#define RTC_H
+#ifndef EEPROM_H
+#define EEPROM_H
 
-void RTCInit(void);
+ErrorStatus EEPROMInit(void);
 
 #endif
+

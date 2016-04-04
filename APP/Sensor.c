@@ -23,6 +23,8 @@
   
 #include "BSP.h"
 
+SensorDataType SensorMeasureData;
+
 /**
   * @brief  Sensor initialization
   *
@@ -45,6 +47,15 @@ ErrorStatus SensorInit(void)
   */
 void SensorMeasure(void *p_arg)
 {
+  while (1)
+  {
+    /* Test */
+    SensorMeasureData.PM25 = 200;
+    SensorMeasureData.Temp = 25.4;
+    SensorMeasureData.Humidity = 0.65;
+    SensorMeasureData.VOC = 100;
+    SensorMeasureData.Time = time(0);
 
-  while (1);
+    OSTimeDlyHMSM(0, 0, TaskDelayTime, 0);
+  }
 }
