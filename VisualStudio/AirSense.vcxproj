@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="AirSense|Win32">
+      <Configuration>AirSense</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8e735642-0d3a-4b07-a139-13ef9e8364a9}</ProjectGuid>
+    <Keyword>MakeFileProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AirSense|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='AirSense|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AirSense|Win32'">
+    <NMakeOutput>AirSense.exe</NMakeOutput>
+    <NMakePreprocessorDefinitions>STM32F10X_MD;_RTE_;__CC_ARM;__DEBUG</NMakePreprocessorDefinitions>
+    <IncludePath>C:\Program Files %28x86%29\Keil\ARM\Pack\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\inc;C:\Program Files (x86)\Keil\ARM\ARMCC\include\;C:\Program Files (x86)\Keil\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\;C:\Program Files %28x86%29\Keil\ARM\Pack\Keil\STM32F1xx_DFP\1.1.0\Device\Include;..\MDK\RTE\Device\STM32F103C8;..\MDK\RTE;..\uCOS\CORE;..\uCOS\CONFIG;..\uCOS\PORT;..\APP</IncludePath>
+    <NMakeBuildCommandLine>"C:\Keil\UV4\Uv4.exe " -b ..\MDK\AirSense.uvprojx -t "AirSense" -j0 -o Build.log</NMakeBuildCommandLine>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="..\README.md" />
+    <None Include="..\uCOS\CORE\ucos_ii.h" />
+    <None Include="..\uCOS\PORT\os_cpu.h" />
+    <None Include="..\uCOS\PORT\os_cpu_a.asm" />
+    <None Include="..\uCOS\CONFIG\includes.h" />
+    <None Include="..\uCOS\CONFIG\os_cfg.h" />
+    <None Include="..\MDK\RTE\Device\STM32F103C8\RTE_Device.h" />
+    <None Include="..\MDK\RTE\Device\STM32F103C8\startup_stm32f10x_md.s" />
+    <None Include="..\MDK\RTE\Device\STM32F103C8\stm32f10x_conf.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\APP\BSP.c" />
+    <ClCompile Include="..\APP\HMI.c" />
+    <ClCompile Include="..\APP\main.c" />
+    <ClCompile Include="..\APP\RTC.c" />
+    <ClCompile Include="..\APP\Sensor.c" />
+    <ClCompile Include="..\APP\WiFi.c" />
+    <ClCompile Include="..\uCOS\CORE\os_core.c" />
+    <ClCompile Include="..\uCOS\CORE\os_flag.c" />
+    <ClCompile Include="..\uCOS\CORE\os_mbox.c" />
+    <ClCompile Include="..\uCOS\CORE\os_mem.c" />
+    <ClCompile Include="..\uCOS\CORE\os_mutex.c" />
+    <ClCompile Include="..\uCOS\CORE\os_q.c" />
+    <ClCompile Include="..\uCOS\CORE\os_sem.c" />
+    <ClCompile Include="..\uCOS\CORE\os_task.c" />
+    <ClCompile Include="..\uCOS\CORE\os_time.c" />
+    <ClCompile Include="..\uCOS\CORE\os_tmr.c" />
+    <ClCompile Include="..\uCOS\CORE\ucos_ii.c" />
+    <ClCompile Include="..\uCOS\PORT\os_cpu_c.c" />
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\misc.c" />
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_adc.c" />
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_bkp.c" />
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_dbgmcu.c" />
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_dma.c" />
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_exti.c" />
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_flash.c" />
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_gpio.c" />
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_i2c.c" />
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_iwdg.c" />
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_pwr.c" />
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_rcc.c" />
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_rtc.c" />
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_spi.c" />
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_tim.c" />
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_usart.c" />
+    <ClCompile Include="..\MDK\RTE\Device\STM32F103C8\system_stm32f10x.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\APP\BSP.h" />
+    <ClInclude Include="..\APP\HMI.h" />
+    <ClInclude Include="..\APP\RTC.h" />
+    <ClInclude Include="..\APP\Sensor.h" />
+    <ClInclude Include="..\APP\WiFi.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
