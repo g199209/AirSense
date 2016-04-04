@@ -24,6 +24,7 @@
 
 /* Includes */
 #include <stdio.h>
+#include <time.h>
 
 #include "stm32f10x_conf.h"
 #include "includes.h"
@@ -31,6 +32,7 @@
 #include "WiFi.h"
 #include "Sensor.h"
 #include "HMI.h"
+#include "RTC.h"
 
 /** @addtogroup System Configuration
   * @brief System Configuration
@@ -54,6 +56,7 @@
 /**
   * @brief  USART2 for debug use
   */
+#define USART2Baud      115200
 #define USART2TXPin     GPIO_Pin_2
 #define USART2RXPin     GPIO_Pin_3
 #define USART2IRQPRIO   15
@@ -65,15 +68,17 @@
 #define TASK_BUTTON_STK_SIZE    64u     // ButtonUpdate
 #define TASK_DISPLAY_STK_SIZE   64u     // OLEDUpdate
 #define TASK_WIFI_STK_SIZE      64u     // WiFiSendPacket
+#define TASK_DEBUG_STK_SIZE     64u     // TaskDebug
 
 /**
   * @brief  OS Priority
   */
-#define TASK_INIT_PRIO      9u      // TaskInit
+#define TASK_INIT_PRIO      7u      // TaskInit
 #define TASK_SENSOR_PRIO    13u     // SensorMeasure
 #define TASK_BUTTON_PRIO    10u     // ButtonUpdate
 #define TASK_DISPLAY_PRIO   11u     // OLEDUpdate
 #define TASK_WIFI_PRIO      15u     // WiFiSendPacket
+#define TASK_DEBUG_PRIO     8u      // TaskDebug
 
 
 /**
@@ -83,8 +88,10 @@
 /**
   * @brief  TaskInit
   */
-extern OS_STK Task_Init_STK[TASK_INIT_STK_SIZE];
 void TaskInit(void *p_arg);
+#ifdef __DEBUG
+void TaskDebug(void * p_arg);
+#endif
 
 
 void BSPInit(void);

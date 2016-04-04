@@ -5,10 +5,6 @@
       <UniqueIdentifier>{751ca12a-e166-4fbf-a6f5-10039eb8afdc}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{ea44f59d-9685-45e9-9567-1c84ffb4f657}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="项目说明">
       <UniqueIdentifier>{50643581-486c-4754-bbe3-91292462c664}</UniqueIdentifier>
       <Extensions>txt</Extensions>
@@ -27,9 +23,6 @@
     </Filter>
     <Filter Include="源文件\uCOS Config">
       <UniqueIdentifier>{4a502d6e-2ed0-4408-b692-53b70e138069}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\::CMSIS">
-      <UniqueIdentifier>{667f7c82-c8d9-47c6-a6ab-4b6f7e9d6a8c}</UniqueIdentifier>
     </Filter>
     <Filter Include="源文件\::Device">
       <UniqueIdentifier>{7f5767df-cda2-4458-868a-778485674bf9}</UniqueIdentifier>
@@ -138,6 +131,9 @@
     <ClCompile Include="..\APP\WiFi.c">
       <Filter>源文件\APP Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\APP\RTC.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\uCOS\CORE\ucos_ii.h">
@@ -164,6 +160,9 @@
     <None Include="..\MDK\RTE\Device\STM32F103C8\stm32f10x_conf.h">
       <Filter>源文件\::Device</Filter>
     </None>
+    <None Include="..\README.md">
+      <Filter>项目说明</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\APP\BSP.h">
@@ -176,6 +175,9 @@
       <Filter>源文件\APP Header</Filter>
     </ClInclude>
     <ClInclude Include="..\APP\WiFi.h">
+      <Filter>源文件\APP Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\APP\RTC.h">
       <Filter>源文件\APP Header</Filter>
     </ClInclude>
   </ItemGroup>

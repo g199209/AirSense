@@ -33,10 +33,10 @@ typedef struct
   uint32_t VOC;
   float Temp;
   float Humidity;
-  uint32_t Timestamp;
+  time_t Time;
 } SensorDataType;
 
-void SensorInit(void);
+ErrorStatus SensorInit(void);
 void SensorMeasure(void *p_arg);
 
 #endif

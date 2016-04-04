@@ -363,7 +363,7 @@
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>STM32F10X_MD</Define>
+              <Define>STM32F10X_MD __DEBUG</Define>
               <Undefine></Undefine>
               <IncludePath>..\uCOS\CORE;..\uCOS\CONFIG;..\uCOS\PORT;..\APP</IncludePath>
             </VariousControls>
@@ -433,6 +433,11 @@
               <FileType>1</FileType>
               <FilePath>..\APP\WiFi.c</FilePath>
             </File>
+            <File>
+              <FileName>RTC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\RTC.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -457,6 +462,11 @@
               <FileName>WiFi.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\APP\WiFi.h</FilePath>
+            </File>
+            <File>
+              <FileName>RTC.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\APP\RTC.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -22,7 +22,7 @@
 #ifndef WIFI_H
 #define WIFI_H
 
-void WiFiInit(void);
+ErrorStatus WiFiInit(void);
 
 void WiFiSendPacket(void *p_arg);
 

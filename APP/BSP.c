@@ -29,11 +29,15 @@ OS_STK Task_Sensor_STK[TASK_SENSOR_STK_SIZE];
 OS_STK Task_Button_STK[TASK_BUTTON_STK_SIZE];
 OS_STK Task_Display_STK[TASK_DISPLAY_STK_SIZE];
 OS_STK Task_WiFi_STK[TASK_WIFI_STK_SIZE];
+#ifdef __DEBUG
+OS_STK Task_Debug_STK[TASK_DEBUG_STK_SIZE];
+#endif
 
 /**
-* @brief  Private function prototype
-*/
+  * @brief  Private function prototype
+  */
 static void DebugInit(void);
+static void EEPROMInit(void);
 
 volatile uint8_t RXdata;
 
@@ -51,6 +55,40 @@ void BSPInit(void)
 
   /* Debug function initialization */
   DebugInit();
+
+#ifdef __DEBUG
+  printf("Debug interface initialize OK!\r\n");
+#endif
+
+  /* Sensor module initialization */
+#ifdef __DEBUG
+  if (SensorInit() == SUCCESS)
+    printf("Sensor initialize OK!\r\n");
+  else
+    printf("Sensor initialize FAILED!\r\n");
+#else
+  SensorInit();
+#endif
+
+  /* HMI module initialization */
+#ifdef __DEBUG
+  if (HMIInit() == SUCCESS)
+    printf("HMI initialize OK!\r\n");
+  else
+    printf("HMI initialize FAILED!\r\n");
+#else
+  HMIInit();
+#endif
+
+  /* WiFi module initialization */
+#ifdef __DEBUG
+  if (WiFiInit() == SUCCESS)
+    printf("WiFi initialize OK!\r\n");
+  else
+    printf("WiFi initialize FAILED!\r\n");
+#else
+  WiFiInit();
+#endif
 }
 
 /**
@@ -62,13 +100,42 @@ void BSPInit(void)
   */
 void TaskInit(void *p_arg)
 {
-  OSTaskCreate(SensorMeasure, (void *)0, &Task_Sensor_STK[TASK_SENSOR_STK_SIZE - 1], TASK_SENSOR_PRIO);
-  OSTaskCreate(ButtonUpdate, (void *)0, &Task_Button_STK[TASK_BUTTON_STK_SIZE - 1], TASK_BUTTON_PRIO);
-  OSTaskCreate(OLEDUpdate, (void *)0, &Task_Display_STK[TASK_DISPLAY_STK_SIZE - 1], TASK_DISPLAY_PRIO);
-  OSTaskCreate(WiFiSendPacket, (void *)0, &Task_WiFi_STK[TASK_WIFI_STK_SIZE - 1], TASK_WIFI_PRIO);
+  INT8U result = 0u;
+
+  result += OSTaskCreate(SensorMeasure, (void *)0, &Task_Sensor_STK[TASK_SENSOR_STK_SIZE - 1], TASK_SENSOR_PRIO);
+  result += OSTaskCreate(ButtonUpdate, (void *)0, &Task_Button_STK[TASK_BUTTON_STK_SIZE - 1], TASK_BUTTON_PRIO);
+  result += OSTaskCreate(OLEDUpdate, (void *)0, &Task_Display_STK[TASK_DISPLAY_STK_SIZE - 1], TASK_DISPLAY_PRIO);
+  result += OSTaskCreate(WiFiSendPacket, (void *)0, &Task_WiFi_STK[TASK_WIFI_STK_SIZE - 1], TASK_WIFI_PRIO);
+#ifdef __DEBUG
+  result += OSTaskCreate(TaskDebug, (void *)0, &Task_Debug_STK[TASK_DEBUG_STK_SIZE - 1], TASK_DEBUG_PRIO);
+  if (result == 0u)
+    printf("Task Create OK!\r\n");
+  else
+    printf("Task Create FAILED!\r\n");
+#endif
 
   OSTaskDel(OS_PRIO_SELF);
 }
+
+/**
+  * @brief  Debug task
+  *
+  * @param  p_arg: Unused
+  *
+  * @retval None
+  */
+#ifdef __DEBUG
+void TaskDebug(void * p_arg)
+{
+  time_t t;
+  t = time(0);
+  while (1)
+  {
+    printf("Time = %d\r\n", t);
+    OSTimeDlyHMSM(0, 0, 10, 0);
+  }
+}
+#endif
 
 /**
   * @brief  Debug function initialization
@@ -111,7 +178,7 @@ static void DebugInit(void)
   GPIO_Init(GPIOA, &GPIO_InitStructure);
 
   /* 115200 bps, 8 bit + 1 stop bit */
-  USART_InitStructure.USART_BaudRate = 115200;
+  USART_InitStructure.USART_BaudRate = USART2Baud;
   USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
   USART_InitStructure.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
   USART_InitStructure.USART_Parity = USART_Parity_No;
@@ -128,6 +195,18 @@ static void DebugInit(void)
   NVIC_Init(&NVIC_InitStructure);
 
   USART_Cmd(USART2, ENABLE);
+}
+
+/**
+  * @brief  brief
+  *
+  * @param  : 
+  *
+  * @retval void
+  */
+static void EEPROMInit(void)
+{
+
 }
 
 /**
@@ -174,7 +253,7 @@ int fputc(int ch, FILE *f)
   /* e.g. write a character to the USART */
 
   /* Loop until the end of transmission */
-  while (USART2->SR & USART_SR_TC == 0);
+  while ((USART2->SR & USART_SR_TC) == 0);
   USART2->DR = (uint8_t)ch;
 
   return ch;
@@ -190,9 +269,14 @@ int fputc(int ch, FILE *f)
 int fgetc(FILE *f)
 {
   int ch;
-  while (USART2->SR & USART_SR_RXNE == 0);
+  while ((USART2->SR & USART_SR_RXNE) == 0);
   ch = USART2->DR & 0xFF;
 
   return ch;
+}
+
+_ARMABI time_t time(time_t * timer)
+{
+  return 5;
 }
 

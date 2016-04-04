@@ -28,11 +28,12 @@
   *
   * @param  None
   *
-  * @retval None
+  * @retval ERROR: Initialization failed
+  * @retval SUCCESS: Initialization successed
   */
-void HMIInit(void)
+ErrorStatus HMIInit(void)
 {
-
+  return SUCCESS;
 }
 
 /**

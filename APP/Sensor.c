@@ -20,7 +20,7 @@
   * @endverbatim
   ***************************************************************
   */
-
+  
 #include "BSP.h"
 
 /**
@@ -28,11 +28,12 @@
   *
   * @param  None
   *
-  * @retval None
+  * @retval ERROR: Initialization failed
+  * @retval SUCCESS: Initialization successed
   */
-void SensorInit(void)
+ErrorStatus SensorInit(void)
 {
-
+  return SUCCESS;
 }
 
 /**

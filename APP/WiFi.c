@@ -26,11 +26,12 @@
   *
   * @param  None
   *
-  * @retval None
+  * @retval ERROR: Initialization failed
+  * @retval SUCCESS: Initialization successed
   */
-void WiFiInit(void)
+ErrorStatus WiFiInit(void)
 {
-
+  return SUCCESS;
 }
 
 /**
