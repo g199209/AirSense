@@ -24,6 +24,8 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
+#define TaskDelayTime 60u    // Delay seconds
+
 /**
   * @brief  Sensor measurement data type
   */

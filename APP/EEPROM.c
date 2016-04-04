@@ -1,15 +1,15 @@
 /**
   **************************************************************
-  * @file       RTC.h
+  * @file       EEPROM.c
   * @author     高明飞
   * @version    V0.1
   * @date       2016-4-4
   *
-  * @brief      RTC module
+  * @brief      EEPROM Module
   *
   * @details 
   * @verbatim
-  * RTC模块及时间处理
+  * EEPROM模块
   *
   * 修改记录：
   * 2016-4-4 :
@@ -19,9 +19,18 @@
   ***************************************************************
   */
 
-#ifndef RTC_H
-#define RTC_H
+#include "BSP.h"
 
-void RTCInit(void);
+/**
+  * @brief  EEPROM initialization
+  *
+  * @param  None
+  *
+  * @retval ERROR: Initialization failed
+  * @retval SUCCESS: Initialization successed
+  */
+ErrorStatus EEPROMInit(void)
+{
 
-#endif
+}
+

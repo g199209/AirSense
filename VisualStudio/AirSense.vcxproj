@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\APP\BSP.c" />
+    <ClCompile Include="..\APP\EEPROM.c" />
     <ClCompile Include="..\APP\HMI.c" />
     <ClCompile Include="..\APP\main.c" />
     <ClCompile Include="..\APP\RTC.c" />
@@ -79,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\APP\BSP.h" />
+    <ClInclude Include="..\APP\EEPROM.h" />
     <ClInclude Include="..\APP\HMI.h" />
     <ClInclude Include="..\APP\RTC.h" />
     <ClInclude Include="..\APP\Sensor.h" />
