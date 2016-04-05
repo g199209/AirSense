@@ -16,8 +16,9 @@
   */
 
 #include "exti.h"
-
-
+#include "oled.h"
+#include "ucos_ii.h"
+#include "HMI.h"
 /**
   * @brief  NVIC_GroupConfig function
   *
@@ -97,3 +98,36 @@ void EXTIX_Init(void)
 	
 }
 
+/**-------------------------------------------------------
+  * @函数名 EXTI15_10_IRQHandler
+  * @功能   按键中断服务处理函数
+  * @参数   无
+  * @返回值 无
+***------------------------------------------------------*/
+void EXTI15_10_IRQHandler(void)
+{
+	OSIntEnter();    
+	if(EXTI_GetITStatus(EXTI_Line12)!=RESET)
+	{
+		EXTI_ClearITPendingBit(EXTI_Line12); //清楚标志位
+		OSSemPost(sem1);
+	}
+	
+	else if(EXTI_GetITStatus(EXTI_Line13)!=RESET)
+	{
+		EXTI_ClearITPendingBit(EXTI_Line13); //清楚标志位
+		OSSemPost(sem2);
+	}
+	
+	else if(EXTI_GetITStatus(EXTI_Line14)!=RESET)
+	{
+		EXTI_ClearITPendingBit(EXTI_Line14); //清楚标志位
+		OSSemPost(sem3);
+	}
+	else
+	{
+    EXTI_ClearITPendingBit(EXTI_Line15); //清楚标志位
+		OSSemPost(sem4);
+	}
+	OSIntExit();       
+}
