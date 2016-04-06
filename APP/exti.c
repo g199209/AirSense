@@ -110,24 +110,24 @@ void EXTI15_10_IRQHandler(void)
 	if(EXTI_GetITStatus(EXTI_Line12)!=RESET)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line12); //清楚标志位
-		OSSemPost(sem1);
+		OSFlagPost(Sem_Display, (OS_FLAGS)1, OS_FLAG_SET, &err);
 	}
 	
 	else if(EXTI_GetITStatus(EXTI_Line13)!=RESET)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line13); //清楚标志位
-		OSSemPost(sem2);
+		OSFlagPost(Sem_Display, (OS_FLAGS)2, OS_FLAG_SET, &err);
 	}
 	
 	else if(EXTI_GetITStatus(EXTI_Line14)!=RESET)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line14); //清楚标志位
-		OSSemPost(sem3);
+		OSFlagPost(Sem_Display, (OS_FLAGS)4, OS_FLAG_SET, &err);
 	}
 	else
 	{
     EXTI_ClearITPendingBit(EXTI_Line15); //清楚标志位
-		OSSemPost(sem4);
+		OSFlagPost(Sem_Display, (OS_FLAGS)8, OS_FLAG_SET, &err);
 	}
 	OSIntExit();       
 }

@@ -31,6 +31,10 @@ extern OS_STK Task_Init_STK[TASK_INIT_STK_SIZE];
   *
   * @retval 0
   */
+	
+INT8U err;
+OS_FLAG_GRP * Sem_Display;
+
 int main(void)
 {
   BSPInit();
@@ -38,9 +42,9 @@ int main(void)
 #ifdef __DEBUG
   printf("BSP initialization OK!\r\n");
 #endif
-
-  OSInit();
   
+  OSInit();
+  Sem_Display = OSFlagCreate(0, &err);
   OSTaskCreate(TaskInit, (void *)0, &Task_Init_STK[TASK_INIT_STK_SIZE - 1], TASK_INIT_PRIO);
 
 #ifdef __DEBUG

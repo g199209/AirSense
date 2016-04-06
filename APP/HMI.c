@@ -23,14 +23,6 @@
 
 #include "BSP.h"
 
- sem1=OSSemCreate(1);
- sem2=OSSemCreate(1);
- sem3=OSSemCreate(1);
- sem4=OSSemCreate(1);
- sem5=OSSemCreate(1);
- sem6=OSSemCreate(1);
- sem7=OSSemCreate(1);
- sem8=OSSemCreate(1);
 /**
   * @brief  HMI module initialization
   *
@@ -73,15 +65,30 @@ void OLEDUpdate(void *p_arg)
   while (1)
   {
 		//if语句进行判断
-		OSSemPend(sem5,0,&error);
-		//代码区
-		OSSemPend(sem6,0,&error);
-		
-		OSSemPend(sem7,0,&error);
-		
-		OSSemPend(sem8,0,&error);
-		
-    OSTaskSuspend(OS_PRIO_SELF);
+		OSFlagPend(Sem_Display, (OS_FLAGS)240, OS_FLAG_WAIT_SET_ANY, 0, &err);  //请求0~3位
+		// 代码区
+		if(Sem_Display->OSFlagFlags&0x10)
+		{
+			OLED_DLY_ms(5000);
+	    OLED_ShowString(8,0,"Dear");	
+			//OSFlagPost(Sem_Display, (OS_FLAGS)16, OS_FLAG_SET, &err);  要不要释放信号量
+		}
+		else if(Sem_Display->OSFlagFlags&0x20)
+		{
+			LED_DLY_ms(5000);
+	    OLED_ShowString(48,0,"LiMin Lady:");	
+		  OSFlagPost(Sem_Display, (OS_FLAGS)32, OS_FLAG_SET, &err);
+		}
+		else if(Sem_Display->OSFlagFlags&0x40)
+		{
+			OLED_DLY_ms(5000);
+	    OLED_ShowString(8,0,"Anyway");	
+		  //OSFlagPost(Sem_Display, (OS_FLAGS)64, OS_FLAG_SET, &err);
+		}
+		else
+			OLED_DLY_ms(5000);
+	    OLED_ShowString(8,0,"Hello");	
+		// OSFlagPost(Sem_Display, (OS_FLAGS)128, OS_FLAG_SET, &err);	
   }
 }
 
@@ -97,23 +104,25 @@ void ButtonUpdate(void *p_arg)
 	INT8U error;
   while (1)
   {
-		//如何用if语句进行判断？
-		OSSemPend(sem1,0,&error);
+		
+		OSFlagPend(Sem_Display, (OS_FLAGS)15, OS_FLAG_WAIT_SET_ANY, 0, &err);  //请求0~3位
 		// 代码区
-		OSSemPost(sem5);
-		
-		OSSemPend(sem2,0,&error);
-		
-		OSSemPost(sem6);
-		
-		OSSemPend(sem3,0,&error);
-		
-		OSSemPost(sem7);
-		
-		OSSemPend(sem4,0,&error);
-		
-		OSSemPost(sem8);
+		if(Sem_Display->OSFlagFlags&0x01)
+		{
+			
+			OSFlagPost(Sem_Display, (OS_FLAGS)16, OS_FLAG_SET, &err);
+		}
+		else if(Sem_Display->OSFlagFlags&0x02)
+		{
+		  OSFlagPost(Sem_Display, (OS_FLAGS)32, OS_FLAG_SET, &err);
+		}
+		else if(Sem_Display->OSFlagFlags&0x04)
+		{
+		  OSFlagPost(Sem_Display, (OS_FLAGS)64, OS_FLAG_SET, &err);
+		}
+		else
+		 OSFlagPost(Sem_Display, (OS_FLAGS)128, OS_FLAG_SET, &err);	
     OSTaskSuspend(OS_PRIO_SELF);
-		//OSSemPend();
+		
   }
 }
