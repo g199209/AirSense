@@ -23,6 +23,8 @@
 
 #include "BSP.h"
 
+//INT8U err;
+
 /**
   * @brief  HMI module initialization
   *
@@ -61,11 +63,11 @@ ErrorStatus HMIInit(void)
   */
 void OLEDUpdate(void *p_arg)
 {
-
+  INT8U err;
   while (1)
   {
 		//if语句进行判断
-		OSFlagPend(Sem_Display, (OS_FLAGS)240, OS_FLAG_WAIT_SET_ANY, 0, &err);  //请求0~3位
+		OSFlagPend(Sem_Display, (OS_FLAGS)240, OS_FLAG_WAIT_SET_ANY, 0, &err);  //请求4~7位
 		// 代码区
 		if(Sem_Display->OSFlagFlags&0x10)
 		{
@@ -75,7 +77,7 @@ void OLEDUpdate(void *p_arg)
 		}
 		else if(Sem_Display->OSFlagFlags&0x20)
 		{
-			LED_DLY_ms(5000);
+			OLED_DLY_ms(5000);
 	    OLED_ShowString(48,0,"LiMin Lady:");	
 		  OSFlagPost(Sem_Display, (OS_FLAGS)32, OS_FLAG_SET, &err);
 		}
@@ -101,7 +103,7 @@ void OLEDUpdate(void *p_arg)
   */
 void ButtonUpdate(void *p_arg)
 {
-	INT8U error;
+	INT8U err;
   while (1)
   {
 		

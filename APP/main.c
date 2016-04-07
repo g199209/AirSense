@@ -32,8 +32,7 @@ extern OS_STK Task_Init_STK[TASK_INIT_STK_SIZE];
   * @retval 0
   */
 	
-INT8U err;
-OS_FLAG_GRP * Sem_Display;
+
 
 int main(void)
 {
@@ -44,7 +43,7 @@ int main(void)
 #endif
   
   OSInit();
-  Sem_Display = OSFlagCreate(0, &err);
+  
   OSTaskCreate(TaskInit, (void *)0, &Task_Init_STK[TASK_INIT_STK_SIZE - 1], TASK_INIT_PRIO);
 
 #ifdef __DEBUG

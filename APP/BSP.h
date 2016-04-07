@@ -90,7 +90,7 @@
   * @brief  OS Events
   */
 extern OS_EVENT * SensorDataReady;
-
+extern OS_FLAG_GRP * Sem_Display;
 /**
   * @brief  TaskInit
   */

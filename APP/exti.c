@@ -18,7 +18,7 @@
 #include "exti.h"
 #include "oled.h"
 #include "ucos_ii.h"
-#include "HMI.h"
+#include "BSP.h"
 /**
   * @brief  NVIC_GroupConfig function
   *
@@ -106,6 +106,7 @@ void EXTIX_Init(void)
 ***------------------------------------------------------*/
 void EXTI15_10_IRQHandler(void)
 {
+	INT8U err;
 	OSIntEnter();    
 	if(EXTI_GetITStatus(EXTI_Line12)!=RESET)
 	{
