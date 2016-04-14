@@ -31,6 +31,9 @@ extern OS_STK Task_Init_STK[TASK_INIT_STK_SIZE];
   *
   * @retval 0
   */
+	
+
+
 int main(void)
 {
   BSPInit();
@@ -38,7 +41,7 @@ int main(void)
 #ifdef __DEBUG
   printf("\r\nBSP initialization Finished!\r\n");
 #endif
-
+  
   OSInit();
   
   OSTaskCreate(TaskInit, (void *)0, &Task_Init_STK[TASK_INIT_STK_SIZE - 1], TASK_INIT_PRIO);

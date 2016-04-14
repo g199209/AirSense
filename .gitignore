@@ -2,6 +2,8 @@
 /MDK/Objects/
 *.build_log.htm
 *.Gmf
+*.LDLiu
+*.user
 *.sdf
 *.opensdf
 *.suo

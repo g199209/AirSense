@@ -37,6 +37,7 @@ OS_STK Task_Debug_STK[TASK_DEBUG_STK_SIZE];
   * @brief  OS Event
   */
 OS_EVENT * SemSensorDataReady;
+OS_FLAG_GRP * Sem_Display;
 
 /**
   * @brief  SysTick Counter
@@ -127,8 +128,9 @@ void BSPInit(void)
   */
 void TaskInit(void *p_arg)
 {
+	INT8U err;
   INT8U result = 0u;
-
+  Sem_Display = OSFlagCreate(0, &err);
   /* Create Tasks */
   result += OSTaskCreate(SensorMeasure, (void *)0, &Task_Sensor_STK[TASK_SENSOR_STK_SIZE - 1], TASK_SENSOR_PRIO);
   result += OSTaskCreate(ButtonUpdate, (void *)0, &Task_Button_STK[TASK_BUTTON_STK_SIZE - 1], TASK_BUTTON_PRIO);

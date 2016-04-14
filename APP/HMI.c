@@ -23,6 +23,8 @@
 
 #include "BSP.h"
 
+//INT8U err;
+
 /**
   * @brief  HMI module initialization
   *
@@ -33,6 +35,22 @@
   */
 ErrorStatus HMIInit(void)
 {
+	 //GPIO_ResetBits(GPIOA, GPIO_Pin_8);
+	 NVIC_GroupConfig();
+   EXTIX_Init();
+   SPIx_Init();
+   OLED_Init();//OLED初始化
+	
+	  //测试开关OK
+	 OLED_Display_Off();
+	 OLED_Display_On();
+	 OLED_CLS();  
+	
+	 OLED_DLY_ms(5000);
+	 OLED_ShowString(8,0,"Dear");	
+	 OLED_ShowString(48,0,"LiMin Lady:");	
+	 OLED_Refresh_Gram();
+	
   return SUCCESS;
 }
 
@@ -45,10 +63,34 @@ ErrorStatus HMIInit(void)
   */
 void OLEDUpdate(void *p_arg)
 {
-
+  INT8U err;
   while (1)
   {
-    OSTaskSuspend(OS_PRIO_SELF);
+		//if语句进行判断
+		OSFlagPend(Sem_Display, (OS_FLAGS)240, OS_FLAG_WAIT_SET_ANY, 0, &err);  //请求4~7位
+		// 代码区
+		if(Sem_Display->OSFlagFlags&0x10)
+		{
+			OLED_DLY_ms(5000);
+	    OLED_ShowString(8,0,"Dear");	
+			//OSFlagPost(Sem_Display, (OS_FLAGS)16, OS_FLAG_SET, &err);  要不要释放信号量
+		}
+		else if(Sem_Display->OSFlagFlags&0x20)
+		{
+			OLED_DLY_ms(5000);
+	    OLED_ShowString(48,0,"LiMin Lady:");	
+		  OSFlagPost(Sem_Display, (OS_FLAGS)32, OS_FLAG_SET, &err);
+		}
+		else if(Sem_Display->OSFlagFlags&0x40)
+		{
+			OLED_DLY_ms(5000);
+	    OLED_ShowString(8,0,"Anyway");	
+		  //OSFlagPost(Sem_Display, (OS_FLAGS)64, OS_FLAG_SET, &err);
+		}
+		else
+			OLED_DLY_ms(5000);
+	    OLED_ShowString(8,0,"Hello");	
+		// OSFlagPost(Sem_Display, (OS_FLAGS)128, OS_FLAG_SET, &err);	
   }
 }
 
@@ -61,8 +103,28 @@ void OLEDUpdate(void *p_arg)
   */
 void ButtonUpdate(void *p_arg)
 {
+	INT8U err;
   while (1)
   {
+		
+		OSFlagPend(Sem_Display, (OS_FLAGS)15, OS_FLAG_WAIT_SET_ANY, 0, &err);  //请求0~3位
+		// 代码区
+		if(Sem_Display->OSFlagFlags&0x01)
+		{
+			
+			OSFlagPost(Sem_Display, (OS_FLAGS)16, OS_FLAG_SET, &err);
+		}
+		else if(Sem_Display->OSFlagFlags&0x02)
+		{
+		  OSFlagPost(Sem_Display, (OS_FLAGS)32, OS_FLAG_SET, &err);
+		}
+		else if(Sem_Display->OSFlagFlags&0x04)
+		{
+		  OSFlagPost(Sem_Display, (OS_FLAGS)64, OS_FLAG_SET, &err);
+		}
+		else
+		 OSFlagPost(Sem_Display, (OS_FLAGS)128, OS_FLAG_SET, &err);	
     OSTaskSuspend(OS_PRIO_SELF);
+		
   }
 }

@@ -90,6 +90,7 @@
   * @brief  OS Events
   */
 extern OS_EVENT * SemSensorDataReady;
+extern OS_FLAG_GRP * Sem_Display;
 
 extern volatile uint32_t SysTickCounter;
 
