@@ -151,9 +151,10 @@ void WiFiSendPacket(void *p_arg)
     /* Send Data */
     if (TCP_Connected)
     {
-#ifdef __DEBUG
-      printf("\r\n\r\nSend TCP packet!\r\n");
-#endif
+      Buffer_Count = 0;   // Clear Buffer, otherwise the buffer may overflow!!
+      #ifdef __DEBUG
+      printf("\r\nSend TCP packet!\r\n");
+      #endif
       SysTickCounter = 0;
       while (SysTickCounter < 5);
       for (ptr = (void *)&SensorMeasureData, i = 0; i < sizeof(SensorMeasureData); ptr++, i++)
@@ -162,6 +163,10 @@ void WiFiSendPacket(void *p_arg)
         WIFIUART->DR = *ptr;
       }
     }
+    #ifdef __DEBUG
+    else
+      printf("\r\nSend TCP packet FAILED!  -  TCP Connected == 0\r\n");
+    #endif
   }
 }
 
@@ -452,7 +457,7 @@ void USART1_IRQHandler(void)
   OSIntEnter();
 
   Rx_Buffer[Buffer_Count] = (char)USART1->DR;
-  if (Buffer_Count < WIFIBUFFERSIZE)
+  if (Buffer_Count < WIFIBUFFERSIZE - 1)  // Buffer_Count < WIFIBUFFERSIZE is WRONG!!!!
     Buffer_Count++;
   // Buffer Overflow, disable Rx
   else

@@ -47,19 +47,21 @@ ErrorStatus SensorInit(void)
   */
 void SensorMeasure(void *p_arg)
 {
+  INT8U err;
+  
   while (1)
   {
     /* Test */
-    SensorMeasureData.PM25 = 34;
-    SensorMeasureData.Temp = 23120;
-    SensorMeasureData.Humidity = 45340;
-    SensorMeasureData.VOC = 67;
+    SensorMeasureData.PM25 = 546;
+    SensorMeasureData.Temp = 19120;
+    SensorMeasureData.Humidity = 60340;
+    SensorMeasureData.VOC = 320;
     //SensorMeasureData.Time = time(0);
 
-//#ifdef __DEBUG
-//    printf("Post SemSensorDataReady!\r\n");
-//#endif
-    OSSemPost(SemSensorDataReady);
+#ifdef __DEBUG
+    printf("\r\nPost SemSensorDataReady!\r\n");
+#endif
+    err = OSSemPost(SemSensorDataReady);
     OSTimeDlyHMSM(0, 0, TaskDelayTime, 0);
   }
 }

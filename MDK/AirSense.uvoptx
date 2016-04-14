@@ -163,9 +163,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>125</LineNumber>
+          <LineNumber>159</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134220050</Address>
+          <Address>134220198</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -174,23 +174,23 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\APP\WiFi.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression></Expression>
+          <Expression>\\AirSense\../APP/WiFi.c\159</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>72</LineNumber>
+          <LineNumber>147</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134218448</Address>
+          <Address>134220214</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\APP\BSP.c</Filename>
+          <Filename>..\APP\WiFi.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\AirSense\../APP/BSP.c\72</Expression>
+          <Expression>\\AirSense\../APP/WiFi.c\147</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -203,6 +203,11 @@
           <count>1</count>
           <WinNumber>1</WinNumber>
           <ItemText>TestNum</ItemText>
+        </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>SemSensorDataReady</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
