@@ -36,7 +36,7 @@ int main(void)
   BSPInit();
 
 #ifdef __DEBUG
-  printf("BSP initialization OK!\r\n");
+  printf("\r\nBSP initialization Finished!\r\n");
 #endif
 
   OSInit();

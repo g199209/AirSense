@@ -89,7 +89,9 @@
 /**
   * @brief  OS Events
   */
-extern OS_EVENT * SensorDataReady;
+extern OS_EVENT * SemSensorDataReady;
+
+extern volatile uint32_t SysTickCounter;
 
 /**
   * @brief  TaskInit
