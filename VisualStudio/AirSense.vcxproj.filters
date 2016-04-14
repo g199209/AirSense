@@ -134,6 +134,18 @@
     <ClCompile Include="..\APP\RTC.c">
       <Filter>源文件\APP Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\APP\EEPROM.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\APP\exti.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\APP\oled.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\APP\spi.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\uCOS\CORE\ucos_ii.h">
@@ -178,6 +190,9 @@
       <Filter>源文件\APP Header</Filter>
     </ClInclude>
     <ClInclude Include="..\APP\RTC.h">
+      <Filter>源文件\APP Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\APP\EEPROM.h">
       <Filter>源文件\APP Header</Filter>
     </ClInclude>
   </ItemGroup>

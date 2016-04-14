@@ -33,6 +33,10 @@
 #include "Sensor.h"
 #include "HMI.h"
 #include "RTC.h"
+#include "EEPROM.h"
+#include "exti.h"
+#include "oled.h"
+#include "spi.h"
 
 /** @addtogroup System Configuration
   * @brief System Configuration
@@ -86,13 +90,20 @@
   */
 
 /**
+  * @brief  OS Events
+  */
+extern OS_EVENT * SemSensorDataReady;
+extern OS_FLAG_GRP * Sem_Display;
+
+extern volatile uint32_t SysTickCounter;
+
+/**
   * @brief  TaskInit
   */
 void TaskInit(void *p_arg);
 #ifdef __DEBUG
 void TaskDebug(void * p_arg);
 #endif
-
 
 void BSPInit(void);
 

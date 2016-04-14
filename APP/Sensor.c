@@ -23,6 +23,8 @@
   
 #include "BSP.h"
 
+volatile SensorDataType SensorMeasureData;
+
 /**
   * @brief  Sensor initialization
   *
@@ -45,6 +47,21 @@ ErrorStatus SensorInit(void)
   */
 void SensorMeasure(void *p_arg)
 {
+  INT8U err;
+  
+  while (1)
+  {
+    /* Test */
+    SensorMeasureData.PM25 = 546;
+    SensorMeasureData.Temp = 19120;
+    SensorMeasureData.Humidity = 60340;
+    SensorMeasureData.VOC = 320;
+    //SensorMeasureData.Time = time(0);
 
-  while (1);
+#ifdef __DEBUG
+    printf("\r\nPost SemSensorDataReady!\r\n");
+#endif
+    err = OSSemPost(SemSensorDataReady);
+    OSTimeDlyHMSM(0, 0, TaskDelayTime, 0);
+  }
 }

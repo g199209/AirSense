@@ -24,6 +24,13 @@
 #ifndef HMI_H
 #define HMI_H
 
+#include "spi.h"
+#include "oled.h"
+#include "exti.h"
+#include "ucos_ii.h"
+ 
+
+
 ErrorStatus HMIInit(void);
 
 void OLEDUpdate(void *p_arg);

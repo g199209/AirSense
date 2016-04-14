@@ -34,10 +34,20 @@ OS_STK Task_Debug_STK[TASK_DEBUG_STK_SIZE];
 #endif
 
 /**
+  * @brief  OS Event
+  */
+OS_EVENT * SemSensorDataReady;
+OS_FLAG_GRP * Sem_Display;
+
+/**
+  * @brief  SysTick Counter
+  */
+volatile uint32_t SysTickCounter;
+
+/**
   * @brief  Private function prototype
   */
 static void DebugInit(void);
-static void EEPROMInit(void);
 
 volatile uint8_t RXdata;
 
@@ -50,22 +60,31 @@ volatile uint8_t RXdata;
   */
 void BSPInit(void)
 {
-  /* Initialize System Tick Timer */
+  /* Initialize System Tick Timer & NVIC*/
   SysTick_Config(SystemCoreClock / OS_TICKS_PER_SEC);
+  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 
   /* Debug function initialization */
   DebugInit();
 
+  /* RTC initialization */
+  RTCInit();
+
 #ifdef __DEBUG
-  printf("Debug interface initialize OK!\r\n");
+  printf("\r\n\r\n\r\n");
+  printf("$$$$$$$$$$$$$$$$$$$$$$$$\r\n");
+  printf("~~~~ Program Start! ~~~~\r\n");
+  printf("$$$$$$$$$$$$$$$$$$$$$$$$\r\n");
+  printf("\r\n");
+  printf("\r\nDebug interface initialize OK!\r\n");
 #endif
 
   /* Sensor module initialization */
 #ifdef __DEBUG
   if (SensorInit() == SUCCESS)
-    printf("Sensor initialize OK!\r\n");
+    printf("\r\nSensor initialize OK!\r\n");
   else
-    printf("Sensor initialize FAILED!\r\n");
+    printf("\r\nSensor initialize FAILED!\r\n");
 #else
   SensorInit();
 #endif
@@ -73,9 +92,9 @@ void BSPInit(void)
   /* HMI module initialization */
 #ifdef __DEBUG
   if (HMIInit() == SUCCESS)
-    printf("HMI initialize OK!\r\n");
+    printf("\r\nHMI initialize OK!\r\n");
   else
-    printf("HMI initialize FAILED!\r\n");
+    printf("\r\nHMI initialize FAILED!\r\n");
 #else
   HMIInit();
 #endif
@@ -83,11 +102,21 @@ void BSPInit(void)
   /* WiFi module initialization */
 #ifdef __DEBUG
   if (WiFiInit() == SUCCESS)
-    printf("WiFi initialize OK!\r\n");
+    printf("\r\nWiFi initialize OK!\r\n");
   else
-    printf("WiFi initialize FAILED!\r\n");
+    printf("\r\nWiFi initialize FAILED!\r\n");
 #else
   WiFiInit();
+#endif
+
+  /* EEPROM initialization */
+#ifdef __DEBUG
+  if (EEPROMInit() == SUCCESS)
+    printf("\r\nEEPROM initialize OK!\r\n");
+  else
+    printf("\r\nEEPROM initialize FAILED!\r\n");
+#else
+  EEPROMInit();
 #endif
 }
 
@@ -100,10 +129,12 @@ void BSPInit(void)
   */
 void TaskInit(void *p_arg)
 {
+	INT8U err;
   INT8U result = 0u;
-
+  
+  /* Create Tasks */
   result += OSTaskCreate(SensorMeasure, (void *)0, &Task_Sensor_STK[TASK_SENSOR_STK_SIZE - 1], TASK_SENSOR_PRIO);
-  result += OSTaskCreate(ButtonUpdate, (void *)0, &Task_Button_STK[TASK_BUTTON_STK_SIZE - 1], TASK_BUTTON_PRIO);
+  // result += OSTaskCreate(ButtonUpdate, (void *)0, &Task_Button_STK[TASK_BUTTON_STK_SIZE - 1], TASK_BUTTON_PRIO);
   result += OSTaskCreate(OLEDUpdate, (void *)0, &Task_Display_STK[TASK_DISPLAY_STK_SIZE - 1], TASK_DISPLAY_PRIO);
   result += OSTaskCreate(WiFiSendPacket, (void *)0, &Task_WiFi_STK[TASK_WIFI_STK_SIZE - 1], TASK_WIFI_PRIO);
 #ifdef __DEBUG
@@ -113,6 +144,10 @@ void TaskInit(void *p_arg)
   else
     printf("Task Create FAILED!\r\n");
 #endif
+
+  /* Create Sems */
+  SemSensorDataReady = OSSemCreate(0);
+  Sem_Display = OSFlagCreate(0, &err);
 
   OSTaskDel(OS_PRIO_SELF);
 }
@@ -127,13 +162,21 @@ void TaskInit(void *p_arg)
 #ifdef __DEBUG
 void TaskDebug(void * p_arg)
 {
-  time_t t;
-  t = time(0);
-  while (1)
-  {
-    printf("Time = %d\r\n", t);
-    OSTimeDlyHMSM(0, 0, 10, 0);
-  }
+  /*if(WiFiAirKiss(120000) == SUCCESS)
+    if(WiFiCreateSocket() == SUCCESS)
+      TCP_Connected = 1;
+  */
+
+  OSTaskSuspend(OS_PRIO_SELF);
+
+  //time_t t;
+  //t = time(0);
+  //while (1)
+  //{
+  //  // printf("Time = %d\r\n", t);
+  //  //OSSemPost(SensorDataReady);
+  //  //OSTimeDlyHMSM(0, 0, 5, 0);
+  //}
 }
 #endif
 
@@ -198,19 +241,9 @@ static void DebugInit(void)
 }
 
 /**
-  * @brief  brief
-  *
-  * @param  : 
-  *
-  * @retval void
-  */
-static void EEPROMInit(void)
-{
-
-}
-
-/**
   * @brief  This function handles SysTick Handler.
+  *
+  * @detail Frequency depends on OS_TICKS_PER_SEC
   *
   * @param  None
   *
@@ -219,7 +252,10 @@ static void EEPROMInit(void)
 void SysTick_Handler(void)
 {
   OSIntEnter();
+
+  SysTickCounter++;
   OSTimeTick();   // 调用uC/OS时钟服务程序
+
   OSIntExit();
 }
 
@@ -233,8 +269,10 @@ void SysTick_Handler(void)
 void USART2_IRQHandler(void)
 {
   OSIntEnter();
-  if ((USART2->SR & USART_SR_RXNE) != 0x00)
-    RXdata = USART2->DR & 0xFF;
+  //if ((USART2->SR & USART_SR_RXNE) != 0x00)
+  //
+  RXdata = USART2->DR & 0xFF;
+  USART1->DR = USART2->DR;
   OSIntExit();
 }
 
@@ -273,10 +311,5 @@ int fgetc(FILE *f)
   ch = USART2->DR & 0xFF;
 
   return ch;
-}
-
-_ARMABI time_t time(time_t * timer)
-{
-  return 5;
 }
 

@@ -33,7 +33,4 @@ void Time_Adjust(void);
 //通过串口检测输入要设定的时间
 uint8_t USART_Scanf(uint32_t value);
 
-
-void TimeCNTToHMS(uint32_t TimeCNT, uint32_t * Hours, uint32_t * Minutes, uint32_t * Seconds);
-time_t EncodeTimestamp(uint32_t Year, uint32_t Mounth, uint32_t Day, uint32_t TimeCNT);
 #endif
