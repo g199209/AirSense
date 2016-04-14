@@ -171,6 +171,33 @@ void WiFiSendPacket(void *p_arg)
 }
 
 /**
+  * @brief  Airkiss task
+  *
+  * @param  p_arg: Unused 
+  *
+  * @retval None
+  */
+void Airkiss(void *p_arg)
+{
+  INT8U err;
+
+  while (1)
+  {
+    OSSemPend(SemAirKiss, 0, &err);
+    OSFlagPost(Sem_Display, FLAGS_AirStart, OS_FLAG_SET, &err);
+
+    if(WiFiAirKiss(120000) == SUCCESS)
+      if (WiFiCreateSocket() == SUCCESS)
+      {
+        OSFlagPost(Sem_Display, FLAGS_AirOK, OS_FLAG_SET, &err);
+        TCP_Connected = 1;
+        continue;
+      }
+    OSFlagPost(Sem_Display, FLAGS_AirERROR, OS_FLAG_SET, &err);
+  }
+}
+
+/**
   * @brief  AirKiss
   *
   * @param  timeout: unit, ms
@@ -267,7 +294,7 @@ ErrorStatus WiFiAirKiss(uint32_t timeout)
 ErrorStatus WiFiCreateSocket(void)
 {
   ATSend(AT_TCP);
-  if (ATCheck(1000) == SUCCESS)
+  if (ATCheck(10000) == SUCCESS)
   {
     #ifdef __DEBUG
     printf("\r\nTCP Connected!\r\n");

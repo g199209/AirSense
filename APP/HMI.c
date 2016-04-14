@@ -70,61 +70,42 @@ void OLEDUpdate(void *p_arg)
   while (1)
   {
 		//if语句进行判断
-    SemFlag = OSFlagPend(Sem_Display, (OS_FLAGS)(0x1 + 0x2 + 0x4 + 0x8), OS_FLAG_WAIT_SET_ANY | OS_FLAG_CONSUME, 0, &err);  //请求0~3位
+    SemFlag = OSFlagPend(Sem_Display, FLAG_GRP, OS_FLAG_WAIT_SET_ANY | OS_FLAG_CONSUME, 0, &err);  //请求0~3位
 		
     OLED_Fill(0, 0, X_WIDTH - 1, Y_WIDTH - 1, 0x00);
-    if (SemFlag & 0x1)
+    if (SemFlag & FLAGS_BTN1)
 		{
 	    OLED_ShowString(0, 0,"0x10");	
 		}
-    else if (SemFlag & 0x2)
+    else if (SemFlag & FLAGS_BTN2)
 		{
 	    OLED_ShowString(0, 16,"0x20");	
 		}
-    else if (SemFlag & 0x4)
+    else if (SemFlag & FLAGS_BTN3)
 		{
 	    OLED_ShowString(0, 32,"0x40");	
 		}
-    else if (SemFlag & 0x8)
+    else if (SemFlag & FLAGS_BTN4)
     {
       OLED_ShowString(0, 48, "0x80");
     }
+    else if (SemFlag & FLAGS_MEASURE)
+    {
+      OLED_ShowString(20, 24, "Measure");
+    }
+    else if (SemFlag & FLAGS_AirStart)
+    {
+      OLED_ShowString(20, 24, "Airkiss....");
+    }
+    else if (SemFlag & FLAGS_AirOK)
+    {
+      OLED_ShowString(20, 24, "Airkiss OK");
+    }
+    else if (SemFlag & FLAGS_AirERROR)
+    {
+      OLED_ShowString(20, 24, "Airkiss ERROR");
+    }
     OLED_Refresh_Gram();
-  }
-}
-
-/**
-  * @brief  Button update task
-  *
-  * @param  p_arg: Unused
-  *
-  * @retval None
-  */
-void ButtonUpdate(void *p_arg)
-{
-	INT8U err;
-  while (1)
-  {
-		
-		OSFlagPend(Sem_Display, (OS_FLAGS)15, OS_FLAG_WAIT_SET_ANY, 0, &err);  //请求0~3位
-		// 代码区
-		if(Sem_Display->OSFlagFlags&0x01)
-		{
-			
-			OSFlagPost(Sem_Display, (OS_FLAGS)16, OS_FLAG_SET, &err);
-		}
-		else if(Sem_Display->OSFlagFlags&0x02)
-		{
-		  OSFlagPost(Sem_Display, (OS_FLAGS)32, OS_FLAG_SET, &err);
-		}
-		else if(Sem_Display->OSFlagFlags&0x04)
-		{
-		  OSFlagPost(Sem_Display, (OS_FLAGS)64, OS_FLAG_SET, &err);
-		}
-		else
-		 OSFlagPost(Sem_Display, (OS_FLAGS)128, OS_FLAG_SET, &err);	
-    OSTaskSuspend(OS_PRIO_SELF);
-		
   }
 }
 

@@ -70,28 +70,27 @@ void EXTIX_Init(void)
 void EXTI15_10_IRQHandler(void)
 {
 	INT8U err;
-	OSIntEnter();    
-	if(EXTI_GetITStatus(EXTI_Line12)!=RESET)
-	{
-		EXTI_ClearITPendingBit(EXTI_Line12); //清楚标志位
-		OSFlagPost(Sem_Display, (OS_FLAGS)0x01, OS_FLAG_SET, &err);
-	}
-	
-	else if(EXTI_GetITStatus(EXTI_Line13)!=RESET)
-	{
-		EXTI_ClearITPendingBit(EXTI_Line13); //清楚标志位
-		OSFlagPost(Sem_Display, (OS_FLAGS)0x02, OS_FLAG_SET, &err);
-	}
-	
-	else if(EXTI_GetITStatus(EXTI_Line14)!=RESET)
-	{
-		EXTI_ClearITPendingBit(EXTI_Line14); //清楚标志位
-		OSFlagPost(Sem_Display, (OS_FLAGS)0x04, OS_FLAG_SET, &err);
-	}
-	else
-	{
-    EXTI_ClearITPendingBit(EXTI_Line15); //清楚标志位
-		OSFlagPost(Sem_Display, (OS_FLAGS)0x08, OS_FLAG_SET, &err);
-	}
+	OSIntEnter();
+  if (EXTI->PR & EXTI_Line12)
+  {
+    EXTI->PR = EXTI_Line12;
+    // OSFlagPost(Sem_Display, FLAGS_BTN4, OS_FLAG_SET, &err);
+    OSSemPost(SemAirKiss);
+  }
+  else if (EXTI->PR & EXTI_Line13)
+  {
+    EXTI->PR = EXTI_Line13;
+    OSFlagPost(Sem_Display, FLAGS_BTN3, OS_FLAG_SET, &err);
+  }
+  else if (EXTI->PR & EXTI_Line14)
+  {
+    EXTI->PR = EXTI_Line14;
+    OSFlagPost(Sem_Display, FLAGS_BTN2, OS_FLAG_SET, &err);
+  }
+  else if (EXTI->PR & EXTI_Line15)
+  {
+    EXTI->PR = EXTI_Line15;
+    OSFlagPost(Sem_Display, FLAGS_BTN1, OS_FLAG_SET, &err);
+  }
 	OSIntExit();       
 }

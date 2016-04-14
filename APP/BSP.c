@@ -26,7 +26,7 @@
   */
 OS_STK Task_Init_STK[TASK_INIT_STK_SIZE];
 OS_STK Task_Sensor_STK[TASK_SENSOR_STK_SIZE];
-OS_STK Task_Button_STK[TASK_BUTTON_STK_SIZE];
+OS_STK Task_Airkiss_STK[TASK_AIRKISS_STK_SIZE];
 OS_STK Task_Display_STK[TASK_DISPLAY_STK_SIZE];
 OS_STK Task_WiFi_STK[TASK_WIFI_STK_SIZE];
 #ifdef __DEBUG
@@ -37,6 +37,7 @@ OS_STK Task_Debug_STK[TASK_DEBUG_STK_SIZE];
   * @brief  OS Event
   */
 OS_EVENT * SemSensorDataReady;
+OS_EVENT * SemAirKiss;
 OS_FLAG_GRP * Sem_Display;
 
 /**
@@ -134,7 +135,7 @@ void TaskInit(void *p_arg)
   
   /* Create Tasks */
   result += OSTaskCreate(SensorMeasure, (void *)0, &Task_Sensor_STK[TASK_SENSOR_STK_SIZE - 1], TASK_SENSOR_PRIO);
-  // result += OSTaskCreate(ButtonUpdate, (void *)0, &Task_Button_STK[TASK_BUTTON_STK_SIZE - 1], TASK_BUTTON_PRIO);
+  result += OSTaskCreate(Airkiss, (void *)0, &Task_Airkiss_STK[TASK_AIRKISS_STK_SIZE - 1], TASK_AIRKISS_PRIO);
   result += OSTaskCreate(OLEDUpdate, (void *)0, &Task_Display_STK[TASK_DISPLAY_STK_SIZE - 1], TASK_DISPLAY_PRIO);
   result += OSTaskCreate(WiFiSendPacket, (void *)0, &Task_WiFi_STK[TASK_WIFI_STK_SIZE - 1], TASK_WIFI_PRIO);
 #ifdef __DEBUG
@@ -148,6 +149,7 @@ void TaskInit(void *p_arg)
   /* Create Sems */
   SemSensorDataReady = OSSemCreate(0);
   Sem_Display = OSFlagCreate(0, &err);
+  SemAirKiss = OSSemCreate(0);
 
   OSTaskDel(OS_PRIO_SELF);
 }
@@ -162,11 +164,6 @@ void TaskInit(void *p_arg)
 #ifdef __DEBUG
 void TaskDebug(void * p_arg)
 {
-  /*if(WiFiAirKiss(120000) == SUCCESS)
-    if(WiFiCreateSocket() == SUCCESS)
-      TCP_Connected = 1;
-  */
-
   OSTaskSuspend(OS_PRIO_SELF);
 
   //time_t t;

@@ -69,7 +69,7 @@
   */
 #define TASK_INIT_STK_SIZE      30u     // TaskInit
 #define TASK_SENSOR_STK_SIZE    64u     // SensorMeasure
-#define TASK_BUTTON_STK_SIZE    64u     // ButtonUpdate
+#define TASK_AIRKISS_STK_SIZE    64u     // ButtonUpdate
 #define TASK_DISPLAY_STK_SIZE   64u     // OLEDUpdate
 #define TASK_WIFI_STK_SIZE      64u     // WiFiSendPacket
 #define TASK_DEBUG_STK_SIZE     64u     // TaskDebug
@@ -79,7 +79,7 @@
   */
 #define TASK_INIT_PRIO      7u      // TaskInit
 #define TASK_SENSOR_PRIO    13u     // SensorMeasure
-#define TASK_BUTTON_PRIO    10u     // ButtonUpdate
+#define TASK_AIRKISS_PRIO   12u     // Airkiss
 #define TASK_DISPLAY_PRIO   11u     // OLEDUpdate
 #define TASK_WIFI_PRIO      15u     // WiFiSendPacket
 #define TASK_DEBUG_PRIO     8u      // TaskDebug
@@ -93,6 +93,7 @@
   * @brief  OS Events
   */
 extern OS_EVENT * SemSensorDataReady;
+extern OS_EVENT * SemAirKiss;
 extern OS_FLAG_GRP * Sem_Display;
 
 extern volatile uint32_t SysTickCounter;

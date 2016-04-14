@@ -58,10 +58,14 @@ void SensorMeasure(void *p_arg)
     SensorMeasureData.VOC = 320;
     //SensorMeasureData.Time = time(0);
 
+    if (TCP_Connected)
+    {
 #ifdef __DEBUG
-    printf("\r\nPost SemSensorDataReady!\r\n");
+      printf("\r\nPost SemSensorDataReady!\r\n");
 #endif
-    err = OSSemPost(SemSensorDataReady);
+      err = OSSemPost(SemSensorDataReady);
+    }
+    OSFlagPost(Sem_Display, FLAGS_MEASURE, OS_FLAG_SET, &err);
     OSTimeDlyHMSM(0, 0, TaskDelayTime, 0);
   }
 }

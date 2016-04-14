@@ -43,5 +43,6 @@ ErrorStatus WiFiAirKiss(uint32_t timeout);
 ErrorStatus WiFiCreateSocket(void);
 
 void WiFiSendPacket(void *p_arg);
+void Airkiss(void *p_arg);
 
 #endif
