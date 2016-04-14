@@ -23,6 +23,17 @@
 #define RTC_H
 
 void RTCInit(void);
+
+//根据检测到串口输入的数据，将检测到的数据转换为对应时间单位：秒
+uint32_t Time_Regulate(void);
+
+//根綯ime_Regulate返回的数值设定RTC的计数寄存器CNTH和CNTL
+void Time_Adjust(void);
+
+//通过串口检测输入要设定的时间
+uint8_t USART_Scanf(uint32_t value);
+
+
 void TimeCNTToHMS(uint32_t TimeCNT, uint32_t * Hours, uint32_t * Minutes, uint32_t * Seconds);
 time_t EncodeTimestamp(uint32_t Year, uint32_t Mounth, uint32_t Day, uint32_t TimeCNT);
 #endif
