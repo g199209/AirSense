@@ -15,16 +15,9 @@
   ***************************************************************
   */
 	
-#include "oled.h"
-#include "AsciiLib.h"
+#include "BSP.h"
 #include "font.h"
-
-#define	    BRIGHTNESS	  0xCF			//亮度
-#define     X_WIDTH       128				//宽度
-#define     Y_WIDTH       64				//长度
-#define		  PAGE			    8					//页数
-#define			MAX_CHAR_POSX X_WIDTH-6 //字符宽度需要-6
-#define			MAX_CHAR_POSY Y_WIDTH-6 //字符长度需要-6
+#include "AsciiLib.h"
 
 u8 OLED_GRAM [128][8];	 
 
@@ -46,13 +39,17 @@ void OLED_WrCmd(unsigned char cmd)
 void OLED_Refresh_Gram(void)
 {
 	u8 i,n;		    
-	for(i=0;i<8;i++)  
+  for (i = 0; i < PAGE; i++)
 	{  
-		OLED_WrCmd(0xb0+i);    //设置页地址（0~7）
+		OLED_WrCmd(0xB0 + i);    //设置页地址（0~7）
 		OLED_WrCmd(0x00);      //设置显示位置—列低地址
-		OLED_WrCmd(0x10);      //设置显示位置—列高地址   
-		for(n=0;n<128;n++) 
-		OLED_WrDat(OLED_GRAM[n][i]); 
+		OLED_WrCmd(0x10);      //设置显示位置—列高地址 
+    /* For SSH1106, the GRAM is 132*64, so dummy write is necessary */
+    /* Dummy write */
+    for (n = 0; n < 2; n++)
+      OLED_WrDat(0x00);
+    for (n = 0; n < X_WIDTH; n++)
+		  OLED_WrDat(OLED_GRAM[n][i]); 
 	}   
 }
 
@@ -77,7 +74,8 @@ void OLED_Display_Off(void)
 //清屏函数,清完屏,整个屏幕是黑色的!和没点亮一样!!!	  
 void OLED_CLS(void)
 {	
-	OLED_Fill(0,0,127,63, 0x00);
+  OLED_Fill(0, 0, X_WIDTH - 1, Y_WIDTH - 1, 0x00);
+  OLED_Refresh_Gram();
 	OLED_DLY_ms(200);//务必要等待，否则会有残留
 }
 
@@ -114,7 +112,6 @@ void OLED_Fill(u8 x1,u8 y1,u8 x2,u8 y2,u8 dot)
 	{
 		for(y=y1;y<=y2;y++)OLED_DrawPoint(x,y,dot);
 	}													    
-	OLED_Refresh_Gram();
 }
 
 /*********************12864初始化***********************/

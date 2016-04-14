@@ -43,10 +43,13 @@
   <ItemGroup>
     <ClCompile Include="..\APP\BSP.c" />
     <ClCompile Include="..\APP\EEPROM.c" />
+    <ClCompile Include="..\APP\exti.c" />
     <ClCompile Include="..\APP\HMI.c" />
     <ClCompile Include="..\APP\main.c" />
+    <ClCompile Include="..\APP\oled.c" />
     <ClCompile Include="..\APP\RTC.c" />
     <ClCompile Include="..\APP\Sensor.c" />
+    <ClCompile Include="..\APP\spi.c" />
     <ClCompile Include="..\APP\WiFi.c" />
     <ClCompile Include="..\uCOS\CORE\os_core.c" />
     <ClCompile Include="..\uCOS\CORE\os_flag.c" />

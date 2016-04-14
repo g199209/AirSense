@@ -60,8 +60,9 @@ volatile uint8_t RXdata;
   */
 void BSPInit(void)
 {
-  /* Initialize System Tick Timer */
+  /* Initialize System Tick Timer & NVIC*/
   SysTick_Config(SystemCoreClock / OS_TICKS_PER_SEC);
+  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 
   /* Debug function initialization */
   DebugInit();
@@ -130,10 +131,10 @@ void TaskInit(void *p_arg)
 {
 	INT8U err;
   INT8U result = 0u;
-  Sem_Display = OSFlagCreate(0, &err);
+  
   /* Create Tasks */
   result += OSTaskCreate(SensorMeasure, (void *)0, &Task_Sensor_STK[TASK_SENSOR_STK_SIZE - 1], TASK_SENSOR_PRIO);
-  result += OSTaskCreate(ButtonUpdate, (void *)0, &Task_Button_STK[TASK_BUTTON_STK_SIZE - 1], TASK_BUTTON_PRIO);
+  // result += OSTaskCreate(ButtonUpdate, (void *)0, &Task_Button_STK[TASK_BUTTON_STK_SIZE - 1], TASK_BUTTON_PRIO);
   result += OSTaskCreate(OLEDUpdate, (void *)0, &Task_Display_STK[TASK_DISPLAY_STK_SIZE - 1], TASK_DISPLAY_PRIO);
   result += OSTaskCreate(WiFiSendPacket, (void *)0, &Task_WiFi_STK[TASK_WIFI_STK_SIZE - 1], TASK_WIFI_PRIO);
 #ifdef __DEBUG
@@ -146,6 +147,7 @@ void TaskInit(void *p_arg)
 
   /* Create Sems */
   SemSensorDataReady = OSSemCreate(0);
+  Sem_Display = OSFlagCreate(0, &err);
 
   OSTaskDel(OS_PRIO_SELF);
 }
@@ -160,9 +162,10 @@ void TaskInit(void *p_arg)
 #ifdef __DEBUG
 void TaskDebug(void * p_arg)
 {
-  if(WiFiAirKiss(120000) == SUCCESS)
+  /*if(WiFiAirKiss(120000) == SUCCESS)
     if(WiFiCreateSocket() == SUCCESS)
       TCP_Connected = 1;
+  */
 
   OSTaskSuspend(OS_PRIO_SELF);
 

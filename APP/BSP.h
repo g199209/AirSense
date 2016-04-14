@@ -34,6 +34,9 @@
 #include "HMI.h"
 #include "RTC.h"
 #include "EEPROM.h"
+#include "exti.h"
+#include "oled.h"
+#include "spi.h"
 
 /** @addtogroup System Configuration
   * @brief System Configuration

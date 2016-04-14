@@ -35,21 +35,22 @@
   */
 ErrorStatus HMIInit(void)
 {
-	 //GPIO_ResetBits(GPIOA, GPIO_Pin_8);
-	 NVIC_GroupConfig();
-   EXTIX_Init();
-   SPIx_Init();
-   OLED_Init();//OLED初始化
+	//GPIO_ResetBits(GPIOA, GPIO_Pin_8);
+  EXTIX_Init();
+  SPIx_Init();
+  OLED_Init();    //OLED初始化
 	
-	  //测试开关OK
-	 OLED_Display_Off();
-	 OLED_Display_On();
-	 OLED_CLS();  
+  // Clear Screen
+  OLED_CLS();  
 	
-	 OLED_DLY_ms(5000);
-	 OLED_ShowString(8,0,"Dear");	
-	 OLED_ShowString(48,0,"LiMin Lady:");	
-	 OLED_Refresh_Gram();
+  // OLED_DLY_ms(5000);
+
+  /* Initial Display */
+  OLED_ShowString(0, 00, "----AirSense----");
+  OLED_ShowString(0, 16, "  Mingfei Gao   ");
+  OLED_ShowString(0, 32, "   Xudong Ren   ");
+  OLED_ShowString(0, 48, "   Dalong Liu   ");
+  OLED_Refresh_Gram();
 	
   return SUCCESS;
 }
@@ -64,33 +65,31 @@ ErrorStatus HMIInit(void)
 void OLEDUpdate(void *p_arg)
 {
   INT8U err;
+  OS_FLAGS SemFlag;
+
   while (1)
   {
 		//if语句进行判断
-		OSFlagPend(Sem_Display, (OS_FLAGS)240, OS_FLAG_WAIT_SET_ANY, 0, &err);  //请求4~7位
-		// 代码区
-		if(Sem_Display->OSFlagFlags&0x10)
+    SemFlag = OSFlagPend(Sem_Display, (OS_FLAGS)(0x1 + 0x2 + 0x4 + 0x8), OS_FLAG_WAIT_SET_ANY | OS_FLAG_CONSUME, 0, &err);  //请求0~3位
+		
+    OLED_Fill(0, 0, X_WIDTH - 1, Y_WIDTH - 1, 0x00);
+    if (SemFlag & 0x1)
 		{
-			OLED_DLY_ms(5000);
-	    OLED_ShowString(8,0,"Dear");	
-			//OSFlagPost(Sem_Display, (OS_FLAGS)16, OS_FLAG_SET, &err);  要不要释放信号量
+	    OLED_ShowString(0, 0,"0x10");	
 		}
-		else if(Sem_Display->OSFlagFlags&0x20)
+    else if (SemFlag & 0x2)
 		{
-			OLED_DLY_ms(5000);
-	    OLED_ShowString(48,0,"LiMin Lady:");	
-		  OSFlagPost(Sem_Display, (OS_FLAGS)32, OS_FLAG_SET, &err);
+	    OLED_ShowString(0, 16,"0x20");	
 		}
-		else if(Sem_Display->OSFlagFlags&0x40)
+    else if (SemFlag & 0x4)
 		{
-			OLED_DLY_ms(5000);
-	    OLED_ShowString(8,0,"Anyway");	
-		  //OSFlagPost(Sem_Display, (OS_FLAGS)64, OS_FLAG_SET, &err);
+	    OLED_ShowString(0, 32,"0x40");	
 		}
-		else
-			OLED_DLY_ms(5000);
-	    OLED_ShowString(8,0,"Hello");	
-		// OSFlagPost(Sem_Display, (OS_FLAGS)128, OS_FLAG_SET, &err);	
+    else if (SemFlag & 0x8)
+    {
+      OLED_ShowString(0, 48, "0x80");
+    }
+    OLED_Refresh_Gram();
   }
 }
 
@@ -128,3 +127,5 @@ void ButtonUpdate(void *p_arg)
 		
   }
 }
+
+

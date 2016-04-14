@@ -285,7 +285,7 @@ ErrorStatus WiFiCreateSocket(void)
       }
     }
     #ifdef __DEBUG
-    printf("\r\CIPMODE or CIPSEND FAILED!\r\n");
+    printf("\r\nCIPMODE or CIPSEND FAILED!\r\n");
     #endif
     return ERROR;
   }

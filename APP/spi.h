@@ -18,25 +18,22 @@
 #ifndef __SPI_H
 #define __SPI_H
 
-#include "stm32f10x.h"
-#include "stm32f10x_conf.h"
 
 /* defines */
-
 #define     OLED_PORT                       GPIOA
-
 #define     OLED_RST_PIN                    GPIO_Pin_4
 
-#define     OLED_RST_L                      GPIO_ResetBits(GPIOA, OLED_RST_PIN)
-#define     OLED_RST_H                      GPIO_SetBits(GPIOA, OLED_RST_PIN)
+#define     OLED_RST_L                      (OLED_PORT->BRR = OLED_RST_PIN)
+#define     OLED_RST_H                      (OLED_PORT->BSRR = OLED_RST_PIN)
 
+#define     OLED_DC_PORT                    GPIOB
 #define     OLED_DC_PIN                     GPIO_Pin_0
 
-#define	    OLED_DC_L                       GPIO_ResetBits(GPIOB, OLED_DC_PIN);
-#define     OLED_DC_H                       GPIO_SetBits(GPIOB, OLED_DC_PIN);
+#define	    OLED_DC_L                       (OLED_DC_PORT->BRR = OLED_DC_PIN)
+#define     OLED_DC_H                       (OLED_DC_PORT->BSRR = OLED_DC_PIN)
 
-#define  	  OLED_SCK_PIN					GPIO_Pin_5  
-#define		  OLED_SDA_PIN					GPIO_Pin_7
+#define  	  OLED_SCK_PIN					          GPIO_Pin_5  
+#define		  OLED_SDA_PIN					          GPIO_Pin_7
 
 // SPI总线速度设置 
 #define SPI_SPEED_2   0

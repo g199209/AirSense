@@ -23,6 +23,13 @@
 #include "stm32f10x_conf.h"
 #include "spi.h" 
 
+#define	    BRIGHTNESS	  0xCF			//亮度
+#define     X_WIDTH       128				//宽度
+#define     Y_WIDTH       64				//长度
+#define		  PAGE			    8					//页数
+#define			MAX_CHAR_POSX X_WIDTH-6 //字符宽度需要-6
+#define			MAX_CHAR_POSY Y_WIDTH-6 //字符长度需要-6
+
    
 /* OLED_WriteByte */
  void OLED_DLY_ms(unsigned int ms);

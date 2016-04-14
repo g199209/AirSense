@@ -14,45 +14,7 @@
   * @endverbatim
   ***************************************************************
   */
-
-#include "exti.h"
-#include "oled.h"
-#include "ucos_ii.h"
 #include "BSP.h"
-/**
-  * @brief  NVIC_GroupConfig function
-  *
-  * @param  None
-  *
-  * @retval None
-  */
-void NVIC_GroupConfig(void)
-{
-  /* 配置NVIC中断优先级分组:
-     - 2比特表示主优先级  主优先级合法取值为 0、1、2、3 
-     - 2比特表示次优先级  次优先级合法取值为 0、1、2、3
-     - 数值越低优先级越高，取值超过合法范围时取低bit位 */
-  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
-  
-/*==================================================================================
-    NVIC_PriorityGroup   |  主优先级范围  |  次优先级范围  |   描述
-  ==================================================================================
-   NVIC_PriorityGroup_0  |      0         |      0-15      |   0 比特表示主优先级
-                         |                |                |   4 比特表示次优先级 
-  ----------------------------------------------------------------------------------
-   NVIC_PriorityGroup_1  |      0-1       |      0-7       |   1 比特表示主优先级
-                         |                |                |   3 比特表示次优先级 
-  ----------------------------------------------------------------------------------
-   NVIC_PriorityGroup_2  |      0-3       |      0-3       |   2 比特表示主优先级
-                         |                |                |   2 比特表示次优先级 
-  ----------------------------------------------------------------------------------
-   NVIC_PriorityGroup_3  |      0-7       |      0-1       |   3 比特表示主优先级
-                         |                |                |   1 比特表示次优先级 
-  ----------------------------------------------------------------------------------
-   NVIC_PriorityGroup_4  |      0-15      |      0         |   4 比特表示主优先级
-                         |                |                |   0 比特表示次优先级   
-  ==================================================================================*/
-}
 
 /**
   * @brief  EXTIX_Init function initialization
@@ -78,24 +40,25 @@ void EXTIX_Init(void)
 	  GPIO_Init(GPIOB, &GPIO_InitStructure);    
 	
 	  /* 将KEY1~KEY4 按键对应的管脚连接到内部中断线 */ 
-	  GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource12|GPIO_PinSource13|GPIO_PinSource14|GPIO_PinSource15);
+	  GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource12);
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource13);
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource14);
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource15);
       
 
     /* 将KEY1~KEY4按键配置为中断模式，上升沿触发中断 */    
     EXTI_InitStructure.EXTI_Line = EXTI_Line12|EXTI_Line13|EXTI_Line14|EXTI_Line15;			   //中断线
     EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;		 //中断模式
-    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;  //上升沿触发
+    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;  //下降沿触发
     EXTI_InitStructure.EXTI_LineCmd = ENABLE;
     EXTI_Init(&EXTI_InitStructure);
 
     /* 将KEY1~KEY4按键的中断优先级配置为最低 */  
     NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQn;	 //使能按键所在的外部中断通道
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x02;   //抢占优先级为1
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x03;		  //子优先级3
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = EXTIIRQPRIO;   //抢占优先级
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;		  //子优先级
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			  //使能外部中断通道
     NVIC_Init(&NVIC_InitStructure);				 //根据NVIC_InitStructure中指定的参数初始化外设NVIC
-
-	
 }
 
 /**-------------------------------------------------------
@@ -111,24 +74,24 @@ void EXTI15_10_IRQHandler(void)
 	if(EXTI_GetITStatus(EXTI_Line12)!=RESET)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line12); //清楚标志位
-		OSFlagPost(Sem_Display, (OS_FLAGS)1, OS_FLAG_SET, &err);
+		OSFlagPost(Sem_Display, (OS_FLAGS)0x01, OS_FLAG_SET, &err);
 	}
 	
 	else if(EXTI_GetITStatus(EXTI_Line13)!=RESET)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line13); //清楚标志位
-		OSFlagPost(Sem_Display, (OS_FLAGS)2, OS_FLAG_SET, &err);
+		OSFlagPost(Sem_Display, (OS_FLAGS)0x02, OS_FLAG_SET, &err);
 	}
 	
 	else if(EXTI_GetITStatus(EXTI_Line14)!=RESET)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line14); //清楚标志位
-		OSFlagPost(Sem_Display, (OS_FLAGS)4, OS_FLAG_SET, &err);
+		OSFlagPost(Sem_Display, (OS_FLAGS)0x04, OS_FLAG_SET, &err);
 	}
 	else
 	{
     EXTI_ClearITPendingBit(EXTI_Line15); //清楚标志位
-		OSFlagPost(Sem_Display, (OS_FLAGS)8, OS_FLAG_SET, &err);
+		OSFlagPost(Sem_Display, (OS_FLAGS)0x08, OS_FLAG_SET, &err);
 	}
 	OSIntExit();       
 }

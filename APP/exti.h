@@ -18,9 +18,8 @@
 #ifndef __EXTI_H
 #define __EXIT_H	
 
-#include "stm32f10x.h"
-#include "stm32f10x_exti.h"
-#include "misc.h"
+/* Define interrupt priority */
+#define EXTIIRQPRIO 9
 
 void NVIC_GroupConfig(void);  	 
 void EXTIX_Init(void);	
