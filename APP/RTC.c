@@ -22,14 +22,7 @@
 
 #include "BSP.h"
 
-/**
-  * @brief  RTC initialization
-  *
-  * @param  None
-  *
-  * @retval None
-  */
-void RTCInit(void)
+void NVIC_Configuration(void)
 {
 	/***************************************进行中断控制器配置**************************************************/
 
@@ -43,9 +36,12 @@ void RTCInit(void)
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
-	
-	/***************************************RTC的初始化*********************************************************/
+	NVIC_Init(&NVIC_InitStructure);	
+}
+
+void RTC_Configuration(void)
+{
+		/***************************************RTC的初始化*********************************************************/
 	/* Enable PWR and BKP clocks */
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR | RCC_APB1Periph_BKP, ENABLE);
 	
@@ -83,8 +79,22 @@ void RTCInit(void)
 	RTC_SetPrescaler(32767); /* RTC period = RTCCLK/RTC_PR = (32.768 KHz)/(32767+1) */
 	
 	/* Wait until last write operation on RTC registers has finished */
-	RTC_WaitForLastTask();
+	RTC_WaitForLastTask();	
+}
 
+
+/**
+  * @brief  RTC initialization
+  *
+  * @param  None
+  *
+  * @retval None
+  */
+void RTCInit(void)
+{
+  NVIC_Configuration();
+	
+	RTC_Configuration();
 }
 
 /**
@@ -193,6 +203,20 @@ void Time_Adjust(void)
 	/* Wait until last write operation on RTC registers has finished */
 	RTC_WaitForLastTask();
 }
+
+
+/**
+  * @brief  Gets the RTC counter value.
+  * @param  None
+  * @retval RTC counter value.
+  */
+uint32_t RTC_GetCounter(void)
+{
+  uint16_t tmp = 0;
+  tmp = RTC->CNTL;
+  return (((uint32_t)RTC->CNTH << 16 ) | tmp) ;
+}
+
 
 /**
 * @brief  This function handles RTC seconds interrupt Handler
