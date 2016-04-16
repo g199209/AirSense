@@ -33,4 +33,6 @@ void Time_Adjust(void);
 //通过串口检测输入要设定的时间
 uint8_t USART_Scanf(uint32_t value);
 
+uint32_t RTC_GetCounter(void);
+
 #endif

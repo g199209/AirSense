@@ -40,7 +40,10 @@ typedef struct
 
 extern volatile SensorDataType SensorMeasureData;
 
+extern __IO uint16_t ADC_PM25_ConvertedValue;
+extern __IO uint16_t ADC_VOC_ConvertedValue;
+
 ErrorStatus SensorInit(void);
 void SensorMeasure(void *p_arg);
-
+void Tim2_delay(u32 time_us);
 #endif
