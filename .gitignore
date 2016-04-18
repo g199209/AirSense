@@ -1,32 +1,15 @@
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
+/MDK/Listings/
+/MDK/Objects/
+*.build_log.htm
+*.Gmf
+*.LDLiu
+*.user
+*.sdf
+*.opensdf
+*.suo
+*.log
+*.ini
+JLinkLog.txt
+MDK/AirSense.uvguix.任旭东
+MDK/RTE/Device/STM32F103C8/RTE_Device.h.0000
+MDK/RTE/Device/STM32F103C8/RTE_Device.h.0001

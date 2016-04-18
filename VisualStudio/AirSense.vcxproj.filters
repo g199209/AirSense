@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{751ca12a-e166-4fbf-a6f5-10039eb8afdc}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="项目说明">
+      <UniqueIdentifier>{50643581-486c-4754-bbe3-91292462c664}</UniqueIdentifier>
+      <Extensions>txt</Extensions>
+    </Filter>
+    <Filter Include="源文件\APP Source">
+      <UniqueIdentifier>{667b424f-d6e1-49f3-99c5-a37571784da2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\APP Header">
+      <UniqueIdentifier>{a4b024cd-95f5-4fdb-a59d-2130974b7f7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\uCOS Core">
+      <UniqueIdentifier>{d3592c74-55f7-4fa9-93af-fee482d8ee52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\uCOS Port">
+      <UniqueIdentifier>{3bc08a8a-38d6-494c-8918-67b0ea5921d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\uCOS Config">
+      <UniqueIdentifier>{4a502d6e-2ed0-4408-b692-53b70e138069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\::Device">
+      <UniqueIdentifier>{7f5767df-cda2-4458-868a-778485674bf9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\APP\main.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\uCOS\CORE\os_core.c">
+      <Filter>源文件\uCOS Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\uCOS\CORE\os_flag.c">
+      <Filter>源文件\uCOS Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\uCOS\CORE\os_mbox.c">
+      <Filter>源文件\uCOS Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\uCOS\CORE\os_mem.c">
+      <Filter>源文件\uCOS Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\uCOS\CORE\os_mutex.c">
+      <Filter>源文件\uCOS Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\uCOS\CORE\os_q.c">
+      <Filter>源文件\uCOS Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\uCOS\CORE\os_sem.c">
+      <Filter>源文件\uCOS Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\uCOS\CORE\os_task.c">
+      <Filter>源文件\uCOS Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\uCOS\CORE\os_time.c">
+      <Filter>源文件\uCOS Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\uCOS\CORE\os_tmr.c">
+      <Filter>源文件\uCOS Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\uCOS\CORE\ucos_ii.c">
+      <Filter>源文件\uCOS Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\uCOS\PORT\os_cpu_c.c">
+      <Filter>源文件\uCOS Port</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\misc.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_adc.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_bkp.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_dbgmcu.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_dma.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_exti.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_flash.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_gpio.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_i2c.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_iwdg.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_pwr.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_rcc.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_rtc.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_spi.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_tim.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Program%20Files%20(x86)\Keil\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\StdPeriph_Driver\src\stm32f10x_usart.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MDK\RTE\Device\STM32F103C8\system_stm32f10x.c">
+      <Filter>源文件\::Device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\APP\BSP.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\APP\HMI.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\APP\Sensor.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\APP\WiFi.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\APP\RTC.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\APP\EEPROM.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\APP\exti.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\APP\oled.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\APP\spi.c">
+      <Filter>源文件\APP Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\uCOS\CORE\ucos_ii.h">
+      <Filter>源文件\uCOS Core</Filter>
+    </None>
+    <None Include="..\uCOS\PORT\os_cpu.h">
+      <Filter>源文件\uCOS Port</Filter>
+    </None>
+    <None Include="..\uCOS\PORT\os_cpu_a.asm">
+      <Filter>源文件\uCOS Port</Filter>
+    </None>
+    <None Include="..\uCOS\CONFIG\includes.h">
+      <Filter>源文件\uCOS Config</Filter>
+    </None>
+    <None Include="..\uCOS\CONFIG\os_cfg.h">
+      <Filter>源文件\uCOS Config</Filter>
+    </None>
+    <None Include="..\MDK\RTE\Device\STM32F103C8\RTE_Device.h">
+      <Filter>源文件\::Device</Filter>
+    </None>
+    <None Include="..\MDK\RTE\Device\STM32F103C8\startup_stm32f10x_md.s">
+      <Filter>源文件\::Device</Filter>
+    </None>
+    <None Include="..\MDK\RTE\Device\STM32F103C8\stm32f10x_conf.h">
+      <Filter>源文件\::Device</Filter>
+    </None>
+    <None Include="..\README.md">
+      <Filter>项目说明</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\APP\BSP.h">
+      <Filter>源文件\APP Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\APP\HMI.h">
+      <Filter>源文件\APP Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\APP\Sensor.h">
+      <Filter>源文件\APP Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\APP\WiFi.h">
+      <Filter>源文件\APP Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\APP\RTC.h">
+      <Filter>源文件\APP Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\APP\EEPROM.h">
+      <Filter>源文件\APP Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
