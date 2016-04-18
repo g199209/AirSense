@@ -74,13 +74,13 @@ void EXTI15_10_IRQHandler(void)
   if (EXTI->PR & EXTI_Line12)
   {
     EXTI->PR = EXTI_Line12;
-    // OSFlagPost(Sem_Display, FLAGS_BTN4, OS_FLAG_SET, &err);
-    OSSemPost(SemAirKiss);
+    OSFlagPost(Sem_Display, FLAGS_BTN4, OS_FLAG_SET, &err);
   }
   else if (EXTI->PR & EXTI_Line13)
   {
     EXTI->PR = EXTI_Line13;
-    OSFlagPost(Sem_Display, FLAGS_BTN3, OS_FLAG_SET, &err);
+    OSSemPost(SemAirKiss);
+    // OSFlagPost(Sem_Display, FLAGS_BTN3, OS_FLAG_SET, &err);
   }
   else if (EXTI->PR & EXTI_Line14)
   {

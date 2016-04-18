@@ -206,19 +206,6 @@ void Time_Adjust(void)
 
 
 /**
-  * @brief  Gets the RTC counter value.
-  * @param  None
-  * @retval RTC counter value.
-  */
-uint32_t RTC_GetCounter(void)
-{
-  uint16_t tmp = 0;
-  tmp = RTC->CNTL;
-  return (((uint32_t)RTC->CNTH << 16 ) | tmp) ;
-}
-
-
-/**
 * @brief  This function handles RTC seconds interrupt Handler
 *
 * @param  None

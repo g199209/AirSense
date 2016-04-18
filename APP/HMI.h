@@ -40,6 +40,12 @@
 
 ErrorStatus HMIInit(void);
 
+typedef enum
+{
+  DisplayMeasurement,
+  DisplayOverview
+} DisplayContent;
+
 void OLEDUpdate(void *p_arg);
 
 #endif

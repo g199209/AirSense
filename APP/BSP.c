@@ -132,6 +132,8 @@ void TaskInit(void *p_arg)
 {
 	INT8U err;
   INT8U result = 0u;
+
+  OSStatInit();
   
   /* Create Tasks */
   result += OSTaskCreate(SensorMeasure, (void *)0, &Task_Sensor_STK[TASK_SENSOR_STK_SIZE - 1], TASK_SENSOR_PRIO);

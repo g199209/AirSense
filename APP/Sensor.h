@@ -24,7 +24,11 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
-#define TaskDelayTime 15u    // Delay seconds
+#define TaskDelayTime 3u    // Delay seconds
+
+#define TIM2IRQPRIO   7u
+
+#define VOCMAX        50000
 
 /**
   * @brief  Sensor measurement data type
@@ -39,9 +43,6 @@ typedef struct
 } SensorDataType;
 
 extern volatile SensorDataType SensorMeasureData;
-
-extern __IO uint16_t ADC_PM25_ConvertedValue;
-extern __IO uint16_t ADC_VOC_ConvertedValue;
 
 ErrorStatus SensorInit(void);
 void SensorMeasure(void *p_arg);
