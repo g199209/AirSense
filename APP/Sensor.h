@@ -24,19 +24,21 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
-#define TaskDelayTime 60u    // Delay seconds
+#define TaskDelayTime 15u    // Delay seconds
 
 /**
   * @brief  Sensor measurement data type
   */
 typedef struct
 {
-  uint32_t PM25;
+  uint32_t Humidity;
+  int32_t Temp;
   uint32_t VOC;
-  float Temp;
-  float Humidity;
-  time_t Time;
+  uint32_t PM25;
+  // time_t Time;
 } SensorDataType;
+
+extern volatile SensorDataType SensorMeasureData;
 
 ErrorStatus SensorInit(void);
 void SensorMeasure(void *p_arg);

@@ -89,8 +89,15 @@
 /**
   * @brief  OS Events
   */
+<<<<<<< HEAD
 extern OS_EVENT * SensorDataReady;
 extern OS_FLAG_GRP * Sem_Display;
+=======
+extern OS_EVENT * SemSensorDataReady;
+
+extern volatile uint32_t SysTickCounter;
+
+>>>>>>> 2f8b49b8ebc62d5ae87c3a0922014240875283aa
 /**
   * @brief  TaskInit
   */
